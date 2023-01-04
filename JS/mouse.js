@@ -1,10 +1,12 @@
 function mouseClicked(){
     inputs.press=false
     updateMouse(graphics.main)
-    switch(stage.scene){
-        case 'roll':
-            dice.roll()
-        break
+    if(!transition.trigger){
+        switch(stage.scene){
+            case 'roll':
+                dice.onClick()
+            break
+        }
     }
 }
 function mousePressed(){

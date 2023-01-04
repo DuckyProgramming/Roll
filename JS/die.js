@@ -6,6 +6,9 @@ class die{
         this.position={x:0,y:0}
         this.size=1
         this.value=0
+        for(let a=0,la=this.sides.length;a<la;a++){
+            this.sides[a].fade=0
+        }
     }
     determineValue(stage){
         switch(stage){
@@ -21,80 +24,26 @@ class die{
     display(){
         this.layer.translate(this.position.x,this.position.y)
         this.layer.scale(this.size)
-        switch(graphics.style){
-            case 0:
-                this.layer.fill(247,218,233)
-                this.layer.stroke(243,202,223)
-                this.layer.strokeWeight(10)
-                this.layer.rect(0,0,100,100,10)
-                this.layer.fill(198,70,89)
-            break
-            case 1:
-                this.layer.fill(235)
-                this.layer.stroke(240)
-                this.layer.strokeWeight(10)
-                this.layer.rect(0,0,100,100,10)
-                this.layer.fill(40)
-            break
-        }
+        this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
+        this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
+        this.layer.strokeWeight(10)
+        this.layer.rect(0,0,100,100,10)
         this.layer.noStroke()
-        switch(this.sides[this.side].type){
-            case 1:
-                if(this.sides[this.side].value[0]==1){
-                    this.layer.ellipse(0,0,16,16)
-                }else if(this.sides[this.side].value[0]==2){
-                    this.layer.ellipse(-30,-30,16,16)
-                    this.layer.ellipse(30,30,16,16)
-                }else if(this.sides[this.side].value[0]==3){
-                    this.layer.ellipse(-30,-30,16,16)
-                    this.layer.ellipse(0,0,16,16)
-                    this.layer.ellipse(30,30,16,16)
-                }else if(this.sides[this.side].value[0]==4){
-                    this.layer.ellipse(-30,-30,16,16)
-                    this.layer.ellipse(30,30,16,16)
-                    this.layer.ellipse(-30,30,16,16)
-                    this.layer.ellipse(30,-30,16,16)
-                }else if(this.sides[this.side].value[0]==5){
-                    this.layer.ellipse(-30,-30,16,16)
-                    this.layer.ellipse(30,30,16,16)
-                    this.layer.ellipse(0,0,16,16)
-                    this.layer.ellipse(-30,30,16,16)
-                    this.layer.ellipse(30,-30,16,16)
-                }else if(this.sides[this.side].value[0]==6){
-                    this.layer.ellipse(-30,-30,16,16)
-                    this.layer.ellipse(30,30,16,16)
-                    this.layer.ellipse(-30,0,16,16)
-                    this.layer.ellipse(30,0,16,16)
-                    this.layer.ellipse(-30,30,16,16)
-                    this.layer.ellipse(30,-30,16,16)
-                }else if(this.sides[this.side].value[0]==7){
-                    this.layer.ellipse(-30,-30,16,16)
-                    this.layer.ellipse(30,30,16,16)
-                    this.layer.ellipse(-30,0,16,16)
-                    this.layer.ellipse(0,-30,16,16)
-                    this.layer.ellipse(0,30,16,16)
-                    this.layer.ellipse(30,0,16,16)
-                    this.layer.ellipse(-30,30,16,16)
-                    this.layer.ellipse(30,-30,16,16)
-                }else if(this.sides[this.side].value[0]==8){
-                    this.layer.ellipse(-30,-30,16,16)
-                    this.layer.ellipse(30,30,16,16)
-                    this.layer.ellipse(-30,0,16,16)
-                    this.layer.ellipse(0,-30,16,16)
-                    this.layer.ellipse(0,0,16,16)
-                    this.layer.ellipse(0,30,16,16)
-                    this.layer.ellipse(30,0,16,16)
-                    this.layer.ellipse(-30,30,16,16)
-                    this.layer.ellipse(30,-30,16,16)
-                }else{
-                    this.layer.textSize(50)
-                    this.layer.text(this.sides[this.side].value[0],0,0)
-                }
-            break
+        for(let a=0,la=this.sides.length;a<la;a++){
+            if(this.sides[a].fade>0){
+                displaySide(this.layer,this.sides[a],types.style[graphics.style].point)
+            }
         }
         this.layer.scale(1/this.size)
         this.layer.translate(-this.position.x,-this.position.y)
     }
     update(){
+        for(let a=0,la=this.sides.length;a<la;a++){
+            if(this.side==a&&this.sides[a].fade<1){
+                this.sides[a].fade=round(this.sides[a].fade*5+1)/5
+            }else if(this.side!=a&&this.sides[a].fade>0){
+                this.sides[a].fade=round(this.sides[a].fade*5-1)/5
+            }
+        }
     }
 }

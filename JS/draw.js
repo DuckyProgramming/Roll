@@ -1,29 +1,18 @@
 function draw(){
     clear()
-    switch(graphics.style){
-        case 0:
-            background(190,247,252)
-        break
-        case 1:
-            background(180)
-        break
-    }
+    background(types.style[graphics.style].background[0][0],types.style[graphics.style].background[0][1],types.style[graphics.style].background[0][2])
     graphics.main.clear()
+    graphics.main.background(types.style[graphics.style].background[1][0],types.style[graphics.style].background[1][1],types.style[graphics.style].background[1][2])
     switch(stage.scene){
         case 'menu':
+            dice.displayMenu()
         break
         case 'roll':
-            switch(graphics.style){
-                case 0:
-                    graphics.main.background(214,249,252)
-                break
-                case 1:
-                    graphics.main.background(200)
-                break
-            }
-            dice.display()
+            dice.displayRoll()
+            dice.updateRoll()
         break
         case 'shop':
+            dice.displayShop()
         break
     }
     displayTransition(graphics.main,transition)
