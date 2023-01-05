@@ -84,7 +84,7 @@ class group{
     displayShop(){
     }
     onClick(){
-        if(pointInsideBox({position:inputs.rel.x},{position:{x:23,y:23},width:46,height:46})){
+        if(pointInsideBox({position:inputs.rel},{position:{x:23,y:23},width:46,height:46})){
             transition.trigger=true
             transition.scene='shop'
         }else{

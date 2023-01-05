@@ -1,7 +1,7 @@
 keyPressed=function(){
     switch(stage.scene){
         case 'roll':
-            if(key==' '){
+            if(key==' '||true){
                 dice.roll()
             }
         break
