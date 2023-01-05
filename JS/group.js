@@ -6,6 +6,9 @@ class group{
         this.points=0
         this.genPoints=0
         this.rolls=1000
+        this.shop={level:0,items:[{price:0,type:0,value:0}]}
+
+        this.setupShop()
     }
     addDie(sides){
         this.dice.push(new die(this.layer,sides))
@@ -57,6 +60,27 @@ class group{
         this.layer.fill(types.style[graphics.style].roll[0],types.style[graphics.style].roll[1],types.style[graphics.style].roll[2])
         this.layer.rect(this.layer.width-23,23,12,12,2)
     }
+    displayItem(item,x,y){
+        this.layer.translate(x,y)
+        this.layer.fill(types.style[graphics.style].item[0],types.style[graphics.style].item[1],types.style[graphics.style].item[2])
+        this.layer.noStroke()
+        this.layer.rect(0,0,80,80,10)
+        switch(item.type){
+            case 0:
+                this.layer.noFill()
+                this.layer.stroke(types.style[graphics.style].no[0],types.style[graphics.style].no[1],types.style[graphics.style].no[2])
+                this.layer.strokeWeight(8)
+                this.layer.ellipse(0,0,48,48)
+                this.layer.line(-12*sqrt(2),-12*sqrt(2),12*sqrt(2),12*sqrt(2))
+            break
+            case 1:
+                this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+                this.layer.textSize(40)
+                this.layer.text('+'+item.value[0],0,0)
+            break
+        }
+        this.layer.translate(-x,-y)
+    }
     displayRoll(){
         this.positionDice()
         for(let a=0,la=this.dice.length;a<la;a++){
@@ -81,14 +105,48 @@ class group{
             }
         }
     }
-    displayShop(){
-    }
-    onClick(){
+    onClickRoll(){
         if(pointInsideBox({position:inputs.rel},{position:{x:23,y:23},width:46,height:46})){
             transition.trigger=true
             transition.scene='shop'
         }else{
             this.roll()
+        }
+    }
+    setupShop(){
+        switch(this.shop.level){
+            case 0:
+                this.shop.items=[]
+                for(let a=0;a<4;a++){
+                    let b=floor(random(1,6))
+                    this.shop.items.push({cost:round(random(b*20,b*30)),type:1,value:[b]})
+                }
+                for(let a=0;a<8;a++){
+                    this.shop.items.push({cost:0,type:0,value:[0]})
+                }
+            break
+        }
+    }
+    displayShop(){
+        for(let a=0,la=this.shop.items.length;a<la;a++){
+            this.displayItem(this.shop.items[a],300+(a%4)*150,150+floor(a/4)*150)
+            if(this.shop.items[a].type>0){
+                this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+                this.layer.textSize(20)
+                if(this.shop.items[a].cost==0){
+                    this.layer.text('Free',300+(a%4)*150,210+floor(a/4)*150)
+                }else{
+                    this.layer.text(numberForm(this.shop.items[a].cost),300+(a%4)*150,205+floor(a/4)*150)
+                }
+            }
+        }
+        this.displayPoints()
+        this.displayRolls()
+    }
+    onClickShop(){
+        if(pointInsideBox({position:inputs.rel},{position:{x:this.layer.width-23,y:23},width:46,height:46})){
+            transition.trigger=true
+            transition.scene='roll'
         }
     }
 }

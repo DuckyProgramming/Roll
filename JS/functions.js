@@ -77,6 +77,17 @@ function pointInsideBox(point,box){
 		return false
 	}
 }
+function numberForm(number){
+    if(number>=1000000000000){
+        return nfc(round(number/1000000000))+'B'
+    }else if(number>=1000000000){
+        return nfc(round(number/1000000))+'M'
+    }else if(number>=1000000){
+        return nfc(round(number/1000))+'K'
+    }else{
+        return nfc(number)
+    }
+}
 function updateMouse(layer){
     inputs.mouse.x=mouseX
     inputs.mouse.y=mouseY
