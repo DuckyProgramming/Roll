@@ -7,6 +7,7 @@ class group{
         this.genPoints=0
         this.rolls=1000
         this.shop={level:0,items:[{price:0,type:0,value:0}]}
+        this.context={type:0,value:[]}
 
         this.setupShop()
     }
@@ -33,11 +34,11 @@ class group{
             }
         }
     }
-    positionDice(){
+    positionDice(size){
         if(this.dice.length==1){
             this.dice[0].position.x=this.layer.width/2
             this.dice[0].position.y=this.layer.height/2
-            this.dice[0].size=1
+            this.dice[0].size=size
         }
     }
     displayPoints(){
@@ -74,6 +75,13 @@ class group{
                 this.layer.line(-12*sqrt(2),-12*sqrt(2),12*sqrt(2),12*sqrt(2))
             break
             case 1:
+                this.layer.noFill()
+                this.layer.stroke(types.style[graphics.style].no[0],types.style[graphics.style].no[1],types.style[graphics.style].no[2])
+                this.layer.strokeWeight(8)
+                this.layer.line(-20,-20,20,20)
+                this.layer.line(-20,20,20,-20)
+            break
+            case 2:
                 this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
                 this.layer.textSize(40)
                 this.layer.text('+'+item.value[0],0,0)
@@ -82,9 +90,9 @@ class group{
         this.layer.translate(-x,-y)
     }
     displayRoll(){
-        this.positionDice()
+        this.positionDice(1)
         for(let a=0,la=this.dice.length;a<la;a++){
-            this.dice[a].display()
+            this.dice[a].displayRoll()
         }
         for(let a=0,la=this.bits.length;a<la;a++){
             this.bits[a].display()
@@ -94,7 +102,7 @@ class group{
     }
     updateRoll(){
         for(let a=0,la=this.dice.length;a<la;a++){
-            this.dice[a].update()
+            this.dice[a].updateRoll()
         }
         for(let a=0,la=this.bits.length;a<la;a++){
             this.bits[a].update()
@@ -119,24 +127,25 @@ class group{
                 this.shop.items=[]
                 for(let a=0;a<4;a++){
                     let b=floor(random(1,6))
-                    this.shop.items.push({cost:round(random(b*20,b*30)),type:1,value:[b]})
+                    this.shop.items.push({cost:round(random(b*20,b*30)),type:2,value:[b],position:{x:300+a*150,y:150}})
                 }
                 for(let a=0;a<8;a++){
-                    this.shop.items.push({cost:0,type:0,value:[0]})
+                    this.shop.items.push({cost:0,type:0,value:[0],position:{x:300+(a%4)*150,y:300+floor(a/4)*150}})
                 }
             break
         }
     }
     displayShop(){
         for(let a=0,la=this.shop.items.length;a<la;a++){
-            this.displayItem(this.shop.items[a],300+(a%4)*150,150+floor(a/4)*150)
+            this.displayItem(this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y)
             if(this.shop.items[a].type>0){
+                this.layer.noStroke()
                 this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
                 this.layer.textSize(20)
                 if(this.shop.items[a].cost==0){
-                    this.layer.text('Free',300+(a%4)*150,210+floor(a/4)*150)
+                    this.layer.text('Free',this.shop.items[a].position.x,this.shop.items[a].position.y+55)
                 }else{
-                    this.layer.text(numberForm(this.shop.items[a].cost),300+(a%4)*150,205+floor(a/4)*150)
+                    this.layer.text(numberForm(this.shop.items[a].cost),this.shop.items[a].position.x,this.shop.items[a].position.y+55)
                 }
             }
         }
@@ -148,5 +157,28 @@ class group{
             transition.trigger=true
             transition.scene='roll'
         }
+        for(let a=0,la=this.shop.items.length;a<la;a++){
+            if(pointInsideBox({position:inputs.rel},{position:this.shop.items[a].position,width:80,height:80})&&this.points>=this.shop.items[a].cost&&this.shop.items[a].type>=2){
+                switch(this.shop.items[a].type){
+                    case 2:
+                        transition.trigger=true
+                        transition.scene='select'
+                        this.context={type:1,value:this.shop.items[a].value}
+                    break
+                }
+                this.points-=this.shop.items[a].cost
+                this.shop.items[a].type=1
+            }
+        }
+    }
+    displaySelect(){
+        this.positionDice(0.4)
+        for(let a=0,la=this.dice.length;a<la;a++){
+            this.dice[a].displaySelect()
+        }
+        this.displayPoints()
+        this.displayRolls()
+    }
+    onClickSelect(){
     }
 }

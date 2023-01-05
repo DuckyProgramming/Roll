@@ -9,6 +9,9 @@ function mouseClicked(){
             case 'shop':
                 dice.onClickShop()
             break
+            case 'select':
+                dice.onClickSelect()
+            break
         }
     }
 }

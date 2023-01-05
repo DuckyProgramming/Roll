@@ -14,6 +14,9 @@ function draw(){
         case 'shop':
             dice.displayShop()
         break
+        case 'select':
+            dice.displaySelect()
+        break
     }
     displayTransition(graphics.main,transition)
     stage.scale=min(width/graphics.main.width,height/graphics.main.height)
