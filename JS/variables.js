@@ -6,7 +6,7 @@ types={
             point:[198,70,89],pointText:[188,67,85],
             roll:[255,228,236],rollText:[252,124,123],
             item:[221,229,231],no:[167,59,56],
-            refresh:[44,100,117],
+            refresh:[44,100,117],inc:[142,170,184],
             //127,85,45
         },{
             background:[[180,180,180],[200,200,200]],
@@ -14,16 +14,16 @@ types={
             point:[40,40,40],pointText:[0,0,0],
             roll:[40,40,40],rollText:[0,0,0],
             item:[160,160,160],no:[255,0,0],
-            refresh:[80,80,80],
+            refresh:[80,80,80],inc:[80,80,80],
         }
     ],die:{
         default:[
-            {type:1,value:[1]},
-            {type:1,value:[2]},
-            {type:1,value:[3]},
-            {type:1,value:[4]},
-            {type:1,value:[5]},
-            {type:1,value:[6]},
+            {type:1,value:[1],inc:0},
+            {type:1,value:[2],inc:0},
+            {type:1,value:[3],inc:0},
+            {type:1,value:[4],inc:0},
+            {type:1,value:[5],inc:0},
+            {type:1,value:[6],inc:0},
         ],
     },
 }

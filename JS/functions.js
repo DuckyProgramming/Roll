@@ -96,6 +96,14 @@ function displaySide(layer,x,y,side,color,fade){
             layer.text('#',-22,1)
         break
     }
+    if(side.inc>0){
+        layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2])
+        layer.triangle(-45,-42,-35,-42,-40,-46)
+        layer.rect(-40,-38,2,8)
+        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+        layer.textSize(3)
+        layer.text(side.inc,-40,-40)
+    }
     layer.translate(-x,-y)
 }
 function displayItem(layer,item,x,y,flag){
@@ -161,6 +169,14 @@ function displayItem(layer,item,x,y,flag){
             layer.textSize(15)
             layer.text('#',-22,1)
         break
+        case 7:
+            layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2])
+            layer.triangle(-20,-10,20,-10,0,-30)
+            layer.rect(0,10,12,40)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(15)
+            layer.text(item.value[0],0,0)
+        break
     }
     layer.translate(-x,-y)
 }
@@ -193,7 +209,7 @@ function copyArray(base){
 function copyList(base){
 	let a=[]
 	for(let b=0,lb=base.length;b<lb;b++){
-		a.push({type:base[b].type,value:copyArray(base[b].value)})
+		a.push({type:base[b].type,value:copyArray(base[b].value),inc:base[b].inc})
 	}
 	return a
 }

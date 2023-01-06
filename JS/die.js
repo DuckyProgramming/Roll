@@ -16,6 +16,9 @@ class die{
                 this.value=0
                 switch(this.sides[this.side].type){
                     case 1:
+                        if(this.sides[this.side].inc>0){
+                            this.sides[this.side].value[0]=min(this.sides[this.side].value[0]+this.sides[this.side].inc,100)
+                        }
                         this.value=this.sides[this.side].value[0]
                     break
                     case 3:
@@ -94,6 +97,13 @@ class die{
                         this.sides[a].value[0]=main.context.value[0]
                         transition.trigger=true
                         transition.scene='shop'
+                    break
+                    case 4:
+                        if(this.sides[a].type==1){
+                            this.sides[a].inc=main.context.value[0]
+                            transition.trigger=true
+                            transition.scene='shop'
+                        }
                     break
                 }
             }

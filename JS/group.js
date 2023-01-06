@@ -156,8 +156,17 @@ class group{
             case 1:
                 this.shop.items=[]
                 for(let a=0;a<4;a++){
-                    let b=floor(random(1,6))
-                    this.shop.items.push({cost:round(random(b*30,b*40)*(1+this.totalPoints/5000)),type:4,value:[b],position:{x:300+a*150,y:150}})
+                    let c=floor(random(0,10))
+                    let b=0
+                    switch(c){
+                        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8:
+                            b=floor(random(1,6))
+                            this.shop.items.push({cost:round(random(b*30,b*40)*(1+this.totalPoints/5000)),type:4,value:[b],position:{x:300+a*150,y:150}})
+                        break
+                        case 9:
+                            this.shop.items.push({cost:round(random(450,600)*(1+this.totalPoints/5000)),type:7,value:[1],position:{x:300+a*150,y:150}})
+                        break
+                    }
                 }
                 for(let a=0;a<4;a++){
                     let c=floor(random(0,2))
@@ -165,11 +174,11 @@ class group{
                     switch(c){
                         case 0:
                             b=floor(random(2,5))
-                            this.shop.items.push({cost:round(random(b*600,b*800)*(1+this.totalPoints/5000)),type:5,value:[b],position:{x:300+a*150,y:300}})
+                            this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:5,value:[b],position:{x:300+a*150,y:300}})
                         break
                         case 1:
                             b=floor(random(2,7))
-                            this.shop.items.push({cost:round(random(b*600,b*800)*(1+this.totalPoints/5000)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
+                            this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
                         break
                     }
                 }
@@ -234,6 +243,11 @@ class group{
                             transition.trigger=true
                             transition.scene='select'
                             this.context={type:3,value:this.shop.items[a].value}
+                        break
+                        case 7:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:4,value:this.shop.items[a].value}
                         break
                     }
                     this.points-=this.shop.items[a].cost
