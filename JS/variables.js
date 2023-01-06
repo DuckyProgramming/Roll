@@ -24,6 +24,13 @@ types={
             {type:1,value:[4],inc:0},
             {type:1,value:[5],inc:0},
             {type:1,value:[6],inc:0},
+        ],inc:[
+            {type:1,value:[1],inc:1},
+            {type:1,value:[1],inc:1},
+            {type:1,value:[1],inc:1},
+            {type:1,value:[1],inc:1},
+            {type:1,value:[1],inc:1},
+            {type:1,value:[1],inc:1},
         ],
     },
 }

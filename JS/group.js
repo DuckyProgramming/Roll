@@ -13,7 +13,15 @@ class group{
         this.shop={level:0,items:[{price:0,type:0,value:0}]}
         this.context={type:0,value:[]}
 
+        this.initialDice()
         this.setupShop()
+    }
+    initialDice(){
+        for(let a=0;a<6;a++){
+            for(let b=0;b<5;b++){
+                this.dice.push({x:150+a*120,y:60+b*120})
+            }
+        }
     }
     addDie(sides){
         this.dice.push(new die(this.layer,sides))
@@ -51,23 +59,6 @@ class group{
                     this.genPoints--
                     this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,1))
                 }
-            }
-        }
-    }
-    positionDice(size){
-        if(this.dice.length==1){
-            this.dice[0].position.x=this.layer.width/2
-            this.dice[0].position.y=this.layer.height/2
-            this.dice[0].diePosition.x=0
-            this.dice[0].diePosition.y=0
-            this.dice[0].size=size
-        }else if(this.dice.length==3||this.dice.length==2){
-            for(let a=0,la=this.dice.length;a<la;a++){
-                this.dice[a].position.x=this.layer.width/2+60-60*la+a*120
-                this.dice[a].diePosition.x=a
-                this.dice[a].diePosition.y=0
-                this.dice[a].position.y=this.layer.height/2
-                this.dice[a].size=size
             }
         }
     }
@@ -230,10 +221,13 @@ class group{
                         break
                     }
                 }
-                for(let a=0;a<4;a++){
-                    this.shop.items.push({cost:0,type:0,value:[0],position:{x:300+a*150,y:450}})
+                for(let a=0;a<2;a++){
+                    this.shop.items.push({cost:round(random(2400,3200)),type:10,value:[],sides:types.die.default,position:{x:300+a*150,y:450}})
                 }
-                this.shop.items.push({cost:1500,type:2,value:[],position:{x:150,y:225}})
+                for(let a=0;a<2;a++){
+                    this.shop.items.push({cost:0,type:0,value:[0],position:{x:600+a*150,y:450}})
+                }
+                this.shop.items.push({cost:3000,type:2,value:[],position:{x:150,y:225}})
                 this.shop.items.push({cost:round(random(90,120)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
             break
         }
@@ -272,7 +266,7 @@ class group{
                         case 2:
                             this.shop.level++
                             this.setupShop()
-                            main.addDie(copyList(types.die.default))
+                            main.addDie(copyList(types.die.default),[-1,-1])
                         break
                         case 3:
                             this.setupShop()
@@ -306,6 +300,9 @@ class group{
                             transition.trigger=true
                             transition.scene='select'
                             this.context={type:6,value:this.shop.items[a].value}
+                        break
+                        case 10:
+                            this.addDie(copyList(this.shop.items[a].sides),[-1,-1])
                         break
                     }
                     this.points-=this.shop.items[a].cost

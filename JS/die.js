@@ -42,7 +42,6 @@ class die{
                                 main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y+1
                             )&&main.dice[a].sides[main.dice[a].side].type==1){
                                 this.value+=main.dice[a].value
-                                print(this.value)
                             }
                         }
                     break
@@ -59,7 +58,7 @@ class die{
         this.layer.rect(0,0,100,100,10)
         for(let a=0,la=this.sides.length;a<la;a++){
             if(this.sides[a].fade>0){
-                displaySide(this.layer,0,0,this.sides[a],types.style[graphics.style].point,this.sides[a].fade)
+                displaySide(this.layer,0,0,1,this.sides[a],types.style[graphics.style].point,this.sides[a].fade)
             }
         }
         this.layer.scale(1/this.size)
@@ -84,7 +83,7 @@ class die{
             this.layer.rect(-120+(a%3)*120,-60+floor(a/3)*120,100,100,10)
         }
         for(let a=0,la=this.sides.length;a<la;a++){
-            displaySide(this.layer,-120+(a%3)*120,-60+floor(a/3)*120,this.sides[a],types.style[graphics.style].point,1)
+            displaySide(this.layer,-120+(a%3)*120,-60+floor(a/3)*120,1,this.sides[a],types.style[graphics.style].point,1)
         }
         this.layer.scale(1/this.size)
         this.layer.translate(-this.position.x,-this.position.y)
