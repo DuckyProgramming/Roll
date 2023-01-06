@@ -4,6 +4,7 @@ class die{
         this.sides=sides
         this.side=0
         this.position={x:0,y:0}
+        this.diePosition={x:0,y:0}
         this.size=1
         this.value=0
         for(let a=0,la=this.sides.length;a<la;a++){
@@ -31,6 +32,19 @@ class die{
                 switch(this.sides[this.side].type){
                     case 2:
                         this.value=main.highestValue*this.sides[this.side].value[0]
+                    break
+                    case 4:
+                        for(let a=0,la=main.dice.length;a<la;a++){
+                            if((
+                                main.dice[a].diePosition.x==this.diePosition.x-1&&main.dice[a].diePosition.y==this.diePosition.y||
+                                main.dice[a].diePosition.x==this.diePosition.x+1&&main.dice[a].diePosition.y==this.diePosition.y||
+                                main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y-1||
+                                main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y+1
+                            )&&main.dice[a].sides[main.dice[a].side].type==1){
+                                this.value+=main.dice[a].value
+                                print(this.value)
+                            }
+                        }
                     break
                 }
             break
@@ -107,6 +121,12 @@ class die{
                     break
                     case 5:
                         this.sides[a].type=1
+                        this.sides[a].value[0]=main.context.value[0]
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 6:
+                        this.sides[a].type=4
                         this.sides[a].value[0]=main.context.value[0]
                         transition.trigger=true
                         transition.scene='shop'

@@ -97,11 +97,15 @@ function displaySide(layer,x,y,side,color,fade){
         break
         case 4:
             layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
-            layer.rect(0,0,12,30)
-            layer.rect(0,0,30,12)
+            layer.rect(0,0,12,36)
+            layer.rect(0,0,36,12)
+            layer.triangle(-12,-18,12,-18,0,-30)
+            layer.triangle(-18,-12,-18,12,-30,0)
+            layer.triangle(12,18,-12,18,0,30)
+            layer.triangle(18,12,18,-12,30,0)
             layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
             layer.textSize(15)
-            layer.text('#',0,1)
+            layer.text('x'+side.value[0],0,1)
         break
     }
     if(side.inc>0){

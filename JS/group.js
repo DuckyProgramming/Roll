@@ -58,10 +58,14 @@ class group{
         if(this.dice.length==1){
             this.dice[0].position.x=this.layer.width/2
             this.dice[0].position.y=this.layer.height/2
+            this.dice[0].diePosition.x=0
+            this.dice[0].diePosition.y=0
             this.dice[0].size=size
         }else if(this.dice.length==3||this.dice.length==2){
             for(let a=0,la=this.dice.length;a<la;a++){
                 this.dice[a].position.x=this.layer.width/2+60-60*la+a*120
+                this.dice[a].diePosition.x=a
+                this.dice[a].diePosition.y=0
                 this.dice[a].position.y=this.layer.height/2
                 this.dice[a].size=size
             }
@@ -297,6 +301,11 @@ class group{
                             transition.trigger=true
                             transition.scene='select'
                             this.context={type:5,value:this.shop.items[a].value}
+                        break
+                        case 9:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:6,value:this.shop.items[a].value}
                         break
                     }
                     this.points-=this.shop.items[a].cost
