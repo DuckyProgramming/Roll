@@ -13,9 +13,21 @@ class die{
     determineValue(stage){
         switch(stage){
             case 0:
+                this.value=0
                 switch(this.sides[this.side].type){
                     case 1:
                         this.value=this.sides[this.side].value[0]
+                    break
+                    case 3:
+                        this.value=this.sides[this.side].value[0]*main.dice.length
+                    break
+                }
+                main.highestValue=max(main.highestValue,this.value)
+            break
+            case 1:
+                switch(this.sides[this.side].type){
+                    case 2:
+                        this.value=main.highestValue*this.sides[this.side].value[0]
                     break
                 }
             break
@@ -70,6 +82,18 @@ class die{
                             transition.trigger=true
                             transition.scene='shop'
                         }
+                    break
+                    case 2:
+                        this.sides[a].type=2
+                        this.sides[a].value[0]=main.context.value[0]
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 3:
+                        this.sides[a].type=3
+                        this.sides[a].value[0]=main.context.value[0]
+                        transition.trigger=true
+                        transition.scene='shop'
                     break
                 }
             }

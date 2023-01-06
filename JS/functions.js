@@ -19,63 +19,81 @@ function displaySide(layer,x,y,side,color,fade){
     switch(side.type){
         case 1:
             if(side.value[0]==1){
-                layer.ellipse(0,0,16,16)
+                layer.ellipse(0,0,12,12)
             }else if(side.value[0]==2){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(30,30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(25,25,12,12)
             }else if(side.value[0]==3){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(0,0,16,16)
-                layer.ellipse(30,30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(0,0,12,12)
+                layer.ellipse(25,25,12,12)
             }else if(side.value[0]==4){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(30,30,16,16)
-                layer.ellipse(-30,30,16,16)
-                layer.ellipse(30,-30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(25,25,12,12)
+                layer.ellipse(-25,25,12,12)
+                layer.ellipse(25,-25,12,12)
             }else if(side.value[0]==5){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(30,30,16,16)
-                layer.ellipse(0,0,16,16)
-                layer.ellipse(-30,30,16,16)
-                layer.ellipse(30,-30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(25,25,12,12)
+                layer.ellipse(0,0,12,12)
+                layer.ellipse(-25,25,12,12)
+                layer.ellipse(25,-25,12,12)
             }else if(side.value[0]==6){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(30,30,16,16)
-                layer.ellipse(-30,0,16,16)
-                layer.ellipse(30,0,16,16)
-                layer.ellipse(-30,30,16,16)
-                layer.ellipse(30,-30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(25,25,12,12)
+                layer.ellipse(-25,0,12,12)
+                layer.ellipse(25,0,12,12)
+                layer.ellipse(-25,25,12,12)
+                layer.ellipse(25,-25,12,12)
             }else if(side.value[0]==7){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(30,30,16,16)
-                layer.ellipse(-30,0,16,16)
-                layer.ellipse(0,0,16,16)
-                layer.ellipse(30,0,16,16)
-                layer.ellipse(-30,30,16,16)
-                layer.ellipse(30,-30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(25,25,12,12)
+                layer.ellipse(-25,0,12,12)
+                layer.ellipse(0,0,12,12)
+                layer.ellipse(25,0,12,12)
+                layer.ellipse(-25,25,12,12)
+                layer.ellipse(25,-25,12,12)
             }else if(side.value[0]==8){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(30,30,16,16)
-                layer.ellipse(-30,0,16,16)
-                layer.ellipse(0,-30,16,16)
-                layer.ellipse(0,30,16,16)
-                layer.ellipse(30,0,16,16)
-                layer.ellipse(-30,30,16,16)
-                layer.ellipse(30,-30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(25,25,12,12)
+                layer.ellipse(-25,0,12,12)
+                layer.ellipse(0,-25,12,12)
+                layer.ellipse(0,25,12,12)
+                layer.ellipse(25,0,12,12)
+                layer.ellipse(-25,25,12,12)
+                layer.ellipse(25,-25,12,12)
             }else if(side.value[0]==9){
-                layer.ellipse(-30,-30,16,16)
-                layer.ellipse(30,30,16,16)
-                layer.ellipse(-30,0,16,16)
-                layer.ellipse(0,-30,16,16)
-                layer.ellipse(0,0,16,16)
-                layer.ellipse(0,30,16,16)
-                layer.ellipse(30,0,16,16)
-                layer.ellipse(-30,30,16,16)
-                layer.ellipse(30,-30,16,16)
+                layer.ellipse(-25,-25,12,12)
+                layer.ellipse(25,25,12,12)
+                layer.ellipse(-25,0,12,12)
+                layer.ellipse(0,-25,12,12)
+                layer.ellipse(0,0,12,12)
+                layer.ellipse(0,25,12,12)
+                layer.ellipse(25,0,12,12)
+                layer.ellipse(-25,25,12,12)
+                layer.ellipse(25,-25,12,12)
             }else{
                 layer.textSize(50)
                 layer.text(side.value[0],0,0)
             }
+        break
+        case 2:
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.rect(-20,0,18,18,3)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(30)
+            layer.text('x'+side.value[0],8,0)
+            layer.textSize(15)
+            layer.text('?',-20,1)
+        break
+        case 3:
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.rect(-22,0,18,18,3)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(24)
+            layer.text('x'+side.value[0],10,0)
+            layer.textSize(15)
+            layer.text('#',-22,1)
         break
     }
     layer.translate(-x,-y)
@@ -125,6 +143,24 @@ function displayItem(layer,item,x,y,flag){
             layer.textSize(40)
             layer.text('+'+item.value[0],0,0)
         break
+        case 5:
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.rect(-20,0,18,18,3)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(30)
+            layer.text('x'+item.value[0],8,0)
+            layer.textSize(15)
+            layer.text('?',-20,1)
+        break
+        case 6:
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.rect(-22,0,18,18,3)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(24)
+            layer.text('x'+item.value[0],10,0)
+            layer.textSize(15)
+            layer.text('#',-22,1)
+        break
     }
     layer.translate(-x,-y)
 }
@@ -146,6 +182,20 @@ function numberForm(number){
     }else{
         return nfc(number)
     }
+}
+function copyArray(base){
+	let a=[]
+	for(let b=0,lb=base.length;b<lb;b++){
+		a.push(base[b])
+	}
+	return a
+}
+function copyList(base){
+	let a=[]
+	for(let b=0,lb=base.length;b<lb;b++){
+		a.push({type:base[b].type,value:copyArray(base[b].value)})
+	}
+	return a
 }
 function updateMouse(layer){
     inputs.mouse.x=mouseX

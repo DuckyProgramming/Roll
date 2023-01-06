@@ -16,7 +16,16 @@ types={
             item:[160,160,160],no:[255,0,0],
             refresh:[80,80,80],
         }
-    ]
+    ],die:{
+        default:[
+            {type:1,value:[1]},
+            {type:1,value:[2]},
+            {type:1,value:[3]},
+            {type:1,value:[4]},
+            {type:1,value:[5]},
+            {type:1,value:[6]},
+        ],
+    },
 }
 stage={scene:'roll',scale:0}
 graphics={main:null,style:1}
