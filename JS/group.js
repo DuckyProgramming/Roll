@@ -11,20 +11,34 @@ class group{
         this.rolls=1000
         this.flag=0
         this.shop={level:0,items:[{price:0,type:0,value:0}]}
-        this.context={type:0,value:[]}
+        this.context={type:0,value:[],sides:[]}
 
         this.initialDice()
         this.setupShop()
     }
     initialDice(){
-        for(let a=0;a<6;a++){
+        for(let a=0;a<5;a++){
             for(let b=0;b<5;b++){
-                this.dice.push({x:150+a*120,y:60+b*120})
+                this.dice.push(new die(this.layer,[]))
+                this.dice[a*5+b].positionSelf(a*5+b)
             }
         }
     }
-    addDie(sides){
-        this.dice.push(new die(this.layer,sides))
+    addDie(sides,position){
+        if(position>=0){
+            this.dice[position]=new die(this.layer,sides)
+            this.dice[position].positionSelf(position)
+        }else{
+            transition.trigger=true
+            transition.scene='select'
+            this.context.type=7
+            this.context.sides=sides
+        }
+    }
+    scaleDice(size){
+        for(let a=0,la=this.dice.length;a<la;a++){
+            this.dice[a].size=size
+        }
     }
     roll(){
         if(this.rolls>0){
@@ -92,7 +106,7 @@ class group{
         this.layer.rect(this.layer.width/2+7,26,6,6,2)
     }
     displayRoll(){
-        this.positionDice(1)
+        this.scaleDice(1)
         for(let a=0,la=this.dice.length;a<la;a++){
             this.dice[a].displayRoll()
         }
@@ -318,7 +332,7 @@ class group{
         }
     }
     displaySelect(){
-        this.positionDice(0.32)
+        this.scaleDice(0.32)
         for(let a=0,la=this.dice.length;a<la;a++){
             this.dice[a].displaySelect()
         }

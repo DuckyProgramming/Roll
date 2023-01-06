@@ -12,57 +12,67 @@ class die{
         }
     }
     determineValue(stage){
-        switch(stage){
-            case 0:
-                this.value=0
-                switch(this.sides[this.side].type){
-                    case 1:
-                        if(this.sides[this.side].inc>0){
-                            this.sides[this.side].value[0]=min(this.sides[this.side].value[0]+this.sides[this.side].inc,100)
-                        }
-                        this.value=this.sides[this.side].value[0]
-                    break
-                    case 3:
-                        this.value=this.sides[this.side].value[0]*main.dice.length
-                    break
-                }
-                main.highestValue=max(main.highestValue,this.value)
-            break
-            case 1:
-                switch(this.sides[this.side].type){
-                    case 2:
-                        this.value=main.highestValue*this.sides[this.side].value[0]
-                    break
-                    case 4:
-                        for(let a=0,la=main.dice.length;a<la;a++){
-                            if((
-                                main.dice[a].diePosition.x==this.diePosition.x-1&&main.dice[a].diePosition.y==this.diePosition.y||
-                                main.dice[a].diePosition.x==this.diePosition.x+1&&main.dice[a].diePosition.y==this.diePosition.y||
-                                main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y-1||
-                                main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y+1
-                            )&&main.dice[a].sides[main.dice[a].side].type==1){
-                                this.value+=main.dice[a].value
+        if(this.sides.length>0){
+            switch(stage){
+                case 0:
+                    this.value=0
+                    switch(this.sides[this.side].type){
+                        case 1:
+                            if(this.sides[this.side].inc>0){
+                                this.sides[this.side].value[0]=min(this.sides[this.side].value[0]+this.sides[this.side].inc,100)
                             }
-                        }
-                    break
-                }
-            break
-        }
-    }
-    displayRoll(){
-        this.layer.translate(this.position.x,this.position.y)
-        this.layer.scale(this.size)
-        this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
-        this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
-        this.layer.strokeWeight(10)
-        this.layer.rect(0,0,100,100,10)
-        for(let a=0,la=this.sides.length;a<la;a++){
-            if(this.sides[a].fade>0){
-                displaySide(this.layer,0,0,1,this.sides[a],types.style[graphics.style].point,this.sides[a].fade)
+                            this.value=this.sides[this.side].value[0]
+                        break
+                        case 3:
+                            this.value=this.sides[this.side].value[0]*main.dice.length
+                        break
+                    }
+                    main.highestValue=max(main.highestValue,this.value)
+                break
+                case 1:
+                    switch(this.sides[this.side].type){
+                        case 2:
+                            this.value=main.highestValue*this.sides[this.side].value[0]
+                        break
+                        case 4:
+                            for(let a=0,la=main.dice.length;a<la;a++){
+                                if((
+                                    main.dice[a].diePosition.x==this.diePosition.x-1&&main.dice[a].diePosition.y==this.diePosition.y||
+                                    main.dice[a].diePosition.x==this.diePosition.x+1&&main.dice[a].diePosition.y==this.diePosition.y||
+                                    main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y-1||
+                                    main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y+1
+                                )&&main.dice[a].sides[main.dice[a].side].type==1){
+                                    this.value+=main.dice[a].value
+                                }
+                            }
+                        break
+                    }
+                break
             }
         }
-        this.layer.scale(1/this.size)
-        this.layer.translate(-this.position.x,-this.position.y)
+    }
+    positionSelf(position){
+        this.position.x=210+(position%5)*120
+        this.position.y=60+floor(position/5)*120
+        this.diePosition.x=position%5
+        this.diePosition.y=floor(position/5)
+    }
+    displayRoll(){
+        if(this.sides.length>0){
+            this.layer.translate(this.position.x,this.position.y)
+            this.layer.scale(this.size)
+            this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
+            this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
+            this.layer.strokeWeight(10)
+            this.layer.rect(0,0,100,100,10)
+            for(let a=0,la=this.sides.length;a<la;a++){
+                if(this.sides[a].fade>0){
+                    displaySide(this.layer,0,0,1,this.sides[a],types.style[graphics.style].point,this.sides[a].fade)
+                }
+            }
+            this.layer.scale(1/this.size)
+            this.layer.translate(-this.position.x,-this.position.y)
+        }
     }
     updateRoll(){
         for(let a=0,la=this.sides.length;a<la;a++){
@@ -89,6 +99,15 @@ class die{
         this.layer.translate(-this.position.x,-this.position.y)
     }
     onClickSelect(){
+        if(pointInsideBox({position:inputs.rel},{position:this.position,width:360*this.size,height:240*this.size})&&this.sides.length==0){
+            switch(main.context.type){
+                case 7:
+                    this.sides=main.context.sides
+                    transition.trigger=true
+                    transition.scene='shop'
+                break
+            }
+        }
         for(let a=0,la=this.sides.length;a<la;a++){
             if(pointInsideBox({position:inputs.rel},{position:{x:this.position.x+(-120+(a%3)*120)*this.size,y:this.position.y+(-60+floor(a/3)*120)*this.size},width:100*this.size,height:100*this.size})){
                 switch(main.context.type){
