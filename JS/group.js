@@ -61,34 +61,6 @@ class group{
         this.layer.fill(types.style[graphics.style].roll[0],types.style[graphics.style].roll[1],types.style[graphics.style].roll[2])
         this.layer.rect(this.layer.width-23,23,12,12,2)
     }
-    displayItem(item,x,y){
-        this.layer.translate(x,y)
-        this.layer.fill(types.style[graphics.style].item[0],types.style[graphics.style].item[1],types.style[graphics.style].item[2])
-        this.layer.noStroke()
-        this.layer.rect(0,0,80,80,10)
-        switch(item.type){
-            case 0:
-                this.layer.noFill()
-                this.layer.stroke(types.style[graphics.style].no[0],types.style[graphics.style].no[1],types.style[graphics.style].no[2])
-                this.layer.strokeWeight(8)
-                this.layer.ellipse(0,0,48,48)
-                this.layer.line(-12*sqrt(2),-12*sqrt(2),12*sqrt(2),12*sqrt(2))
-            break
-            case 1:
-                this.layer.noFill()
-                this.layer.stroke(types.style[graphics.style].no[0],types.style[graphics.style].no[1],types.style[graphics.style].no[2])
-                this.layer.strokeWeight(8)
-                this.layer.line(-20,-20,20,20)
-                this.layer.line(-20,20,20,-20)
-            break
-            case 2:
-                this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
-                this.layer.textSize(40)
-                this.layer.text('+'+item.value[0],0,0)
-            break
-        }
-        this.layer.translate(-x,-y)
-    }
     displayRoll(){
         this.positionDice(1)
         for(let a=0,la=this.dice.length;a<la;a++){
@@ -127,17 +99,21 @@ class group{
                 this.shop.items=[]
                 for(let a=0;a<4;a++){
                     let b=floor(random(1,6))
-                    this.shop.items.push({cost:round(random(b*20,b*30)),type:2,value:[b],position:{x:300+a*150,y:150}})
+                    this.shop.items.push({cost:round(random(b*30,b*40)),type:4,value:[b],position:{x:300+a*150,y:150}})
                 }
                 for(let a=0;a<8;a++){
                     this.shop.items.push({cost:0,type:0,value:[0],position:{x:300+(a%4)*150,y:300+floor(a/4)*150}})
                 }
+                this.shop.items.push({cost:750,type:2,value:[],position:{x:150,y:225}})
+                this.shop.items.push({cost:round(random(90,120)),type:3,value:[],position:{x:150,y:375}})
+            break
+            case 1:
             break
         }
     }
     displayShop(){
         for(let a=0,la=this.shop.items.length;a<la;a++){
-            this.displayItem(this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y)
+            displayItem(this.layer,this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y)
             if(this.shop.items[a].type>0){
                 this.layer.noStroke()
                 this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
@@ -161,13 +137,22 @@ class group{
             if(pointInsideBox({position:inputs.rel},{position:this.shop.items[a].position,width:80,height:80})&&this.points>=this.shop.items[a].cost&&this.shop.items[a].type>=2){
                 switch(this.shop.items[a].type){
                     case 2:
+                        this.shop.level++
+                        this.setupShop()
+                    break
+                    case 3:
+                        this.setupShop()
+                    break
+                    case 4:
                         transition.trigger=true
                         transition.scene='select'
                         this.context={type:1,value:this.shop.items[a].value}
                     break
                 }
                 this.points-=this.shop.items[a].cost
-                this.shop.items[a].type=1
+                if(this.shop.items[a].type>=4){
+                    this.shop.items[a].type=1
+                }
             }
         }
     }
@@ -180,5 +165,16 @@ class group{
         this.displayRolls()
     }
     onClickSelect(){
+        if(pointInsideBox({position:inputs.rel},{position:{x:23,y:23},width:46,height:46})){
+            transition.trigger=true
+            transtiion.scene='shop'
+        }
+        if(pointInsideBox({position:inputs.rel},{position:{x:this.layer.width-23,y:23},width:46,height:46})){
+            transition.trigger=true
+            transtiion.scene='roll'
+        }
+        for(let a=0,la=this.dice.length;a<la;a++){
+            this.dice[a].onClickSelect()
+        }
     }
 }
