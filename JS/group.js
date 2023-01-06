@@ -59,13 +59,12 @@ class group{
             this.dice[0].position.x=this.layer.width/2
             this.dice[0].position.y=this.layer.height/2
             this.dice[0].size=size
-        }else if(this.dice.length==2){
-            this.dice[0].position.x=this.layer.width/2-60
-            this.dice[0].position.y=this.layer.height/2
-            this.dice[1].position.x=this.layer.width/2+60
-            this.dice[1].position.y=this.layer.height/2
-            this.dice[0].size=size
-            this.dice[1].size=size
+        }else if(this.dice.length==3||this.dice.length==2){
+            for(let a=0,la=this.dice.length;a<la;a++){
+                this.dice[a].position.x=this.layer.width/2+60-60*la+a*120
+                this.dice[a].position.y=this.layer.height/2
+                this.dice[a].size=size
+            }
         }
     }
     displayPoints(){
@@ -169,7 +168,7 @@ class group{
                     }
                 }
                 for(let a=0;a<4;a++){
-                    let c=floor(random(0,2))
+                    let c=floor(random(0,3))
                     let b=0
                     switch(c){
                         case 0:
@@ -179,6 +178,51 @@ class group{
                         case 1:
                             b=floor(random(2,7))
                             this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
+                        break
+                        case 2:
+                            this.shop.items.push({cost:round(random(1200,1600)*(1+this.totalPoints/5000)),type:9,value:[1],position:{x:300+a*150,y:300}})
+                        break
+                    }
+                }
+                for(let a=0;a<4;a++){
+                    this.shop.items.push({cost:0,type:0,value:[0],position:{x:300+a*150,y:450}})
+                }
+                this.shop.items.push({cost:1500,type:2,value:[],position:{x:150,y:225}})
+                this.shop.items.push({cost:round(random(90,120)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
+            break
+            case 2:
+                this.shop.items=[]
+                for(let a=0;a<4;a++){
+                    let c=floor(random(0,10))
+                    let b=0
+                    switch(c){
+                        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8:
+                            b=floor(random(1,6))
+                            this.shop.items.push({cost:round(random(b*30,b*40)*(1+this.totalPoints/5000)),type:4,value:[b],position:{x:300+a*150,y:150}})
+                        break
+                        case 9:
+                            this.shop.items.push({cost:round(random(450,600)*(1+this.totalPoints/5000)),type:7,value:[1],position:{x:300+a*150,y:150}})
+                        break
+                    }
+                }
+                for(let a=0;a<4;a++){
+                    let c=floor(random(0,4))
+                    let b=0
+                    switch(c){
+                        case 0:
+                            b=floor(random(2,5))
+                            this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:5,value:[b],position:{x:300+a*150,y:300}})
+                        break
+                        case 1:
+                            b=floor(random(2,7))
+                            this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
+                        break
+                        case 2:
+                            this.shop.items.push({cost:round(random(1200,1600)*(1+this.totalPoints/5000)),type:9,value:[1],position:{x:300+a*150,y:300}})
+                        break
+                        case 3:
+                            b=floor(random(10,101))
+                            this.shop.items.push({cost:round(random(b*15,b*20)*(1+this.totalPoints/5000)),type:8,value:[b],position:{x:300+a*150,y:300}})
                         break
                     }
                 }
@@ -248,6 +292,11 @@ class group{
                             transition.trigger=true
                             transition.scene='select'
                             this.context={type:4,value:this.shop.items[a].value}
+                        break
+                        case 8:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:5,value:this.shop.items[a].value}
                         break
                     }
                     this.points-=this.shop.items[a].cost

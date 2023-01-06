@@ -95,6 +95,14 @@ function displaySide(layer,x,y,side,color,fade){
             layer.textSize(15)
             layer.text('#',-22,1)
         break
+        case 4:
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.rect(0,0,12,30)
+            layer.rect(0,0,30,12)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(15)
+            layer.text('#',0,1)
+        break
     }
     if(side.inc>0){
         layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2])
@@ -152,22 +160,10 @@ function displayItem(layer,item,x,y,flag){
             layer.text('+'+item.value[0],0,0)
         break
         case 5:
-            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
-            layer.rect(-20,0,18,18,3)
-            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
-            layer.textSize(30)
-            layer.text('x'+item.value[0],8,0)
-            layer.textSize(15)
-            layer.text('?',-20,1)
+            displaySide(layer,0,0,{type:2,value:item.value},[0,0,0],1)
         break
         case 6:
-            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
-            layer.rect(-22,0,18,18,3)
-            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
-            layer.textSize(24)
-            layer.text('x'+item.value[0],10,0)
-            layer.textSize(15)
-            layer.text('#',-22,1)
+            displaySide(layer,0,0,{type:3,value:item.value},[0,0,0],1)
         break
         case 7:
             layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2])
@@ -176,6 +172,12 @@ function displayItem(layer,item,x,y,flag){
             layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
             layer.textSize(15)
             layer.text(item.value[0],0,0)
+        break
+        case 8:
+            displaySide(layer,0,0,{type:1,value:item.value},types.style[graphics.style].point,1)
+        break
+        case 9:
+            displaySide(layer,0,0,{type:4,value:item.value},[0,0,0],1)
         break
     }
     layer.translate(-x,-y)

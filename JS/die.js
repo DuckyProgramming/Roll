@@ -105,6 +105,12 @@ class die{
                             transition.scene='shop'
                         }
                     break
+                    case 5:
+                        this.sides[a].type=1
+                        this.sides[a].value[0]=main.context.value[0]
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
                 }
             }
         }
