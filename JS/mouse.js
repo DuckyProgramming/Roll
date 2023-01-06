@@ -4,13 +4,13 @@ function mouseClicked(){
     if(!transition.trigger){
         switch(stage.scene){
             case 'roll':
-                dice.onClickRoll()
+                main.onClickRoll()
             break
             case 'shop':
-                dice.onClickShop()
+                main.onClickShop()
             break
             case 'select':
-                dice.onClickSelect()
+                main.onClickSelect()
             break
         }
     }

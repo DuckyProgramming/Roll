@@ -80,10 +80,14 @@ function displaySide(layer,x,y,side,color,fade){
     }
     layer.translate(-x,-y)
 }
-function displayItem(layer,item,x,y){
+function displayItem(layer,item,x,y,flag){
     layer.translate(x,y)
-    layer.fill(types.style[graphics.style].item[0],types.style[graphics.style].item[1],types.style[graphics.style].item[2])
     layer.noStroke()
+    if(flag){
+        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+        layer.rect(0,0,88,88,14)
+    }
+    layer.fill(types.style[graphics.style].item[0],types.style[graphics.style].item[1],types.style[graphics.style].item[2])
     layer.rect(0,0,80,80,10)
     switch(item.type){
         case 0:

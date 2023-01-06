@@ -4,8 +4,10 @@ class group{
         this.bits=[]
         this.dice=[]
         this.points=0
+        this.hiddenPoints=0
         this.genPoints=0
         this.rolls=1000
+        this.flag=0
         this.shop={level:0,items:[{price:0,type:0,value:0}]}
         this.context={type:0,value:[]}
 
@@ -22,7 +24,16 @@ class group{
                 this.dice[a].determineValue(0)
             }
             for(let a=0,la=this.dice.length;a<la;a++){
+                this.hiddenPoints+=this.dice[a].value
                 this.genPoints=this.dice[a].value
+                while(this.genPoints>200){
+                    this.genPoints-=100
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,100))
+                }
+                while(this.genPoints>40){
+                    this.genPoints-=20
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,20))
+                }
                 while(this.genPoints>10){
                     this.genPoints-=5
                     this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,5))
@@ -61,6 +72,15 @@ class group{
         this.layer.fill(types.style[graphics.style].roll[0],types.style[graphics.style].roll[1],types.style[graphics.style].roll[2])
         this.layer.rect(this.layer.width-23,23,12,12,2)
     }
+    displayDice(){
+        this.layer.fill(types.style[graphics.style].roll[0],types.style[graphics.style].roll[1],types.style[graphics.style].roll[2])
+        this.layer.rect(this.layer.width/2-7,19,6,6,2)
+        this.layer.rect(this.layer.width/2-7,26,6,6,2)
+        this.layer.rect(this.layer.width/2,19,6,6,2)
+        this.layer.rect(this.layer.width/2,26,6,6,2)
+        this.layer.rect(this.layer.width/2+7,19,6,6,2)
+        this.layer.rect(this.layer.width/2+7,26,6,6,2)
+    }
     displayRoll(){
         this.positionDice(1)
         for(let a=0,la=this.dice.length;a<la;a++){
@@ -71,6 +91,7 @@ class group{
         }
         this.displayPoints()
         this.displayRolls()
+        this.displayDice()
     }
     updateRoll(){
         for(let a=0,la=this.dice.length;a<la;a++){
@@ -89,7 +110,16 @@ class group{
         if(pointInsideBox({position:inputs.rel},{position:{x:23,y:23},width:46,height:46})){
             transition.trigger=true
             transition.scene='shop'
-        }else{
+        }else if(pointInsideBox({position:inputs.rel},{position:{x:this.layer.width/2,y:23},width:46,height:46})){
+            transition.trigger=true
+            transition.scene='select'
+            this.context={type:0,value:0}
+        }else if(this.flag==0||this.hiddenPoints<this.flag){
+            this.roll()
+        }
+    }
+    onKeyRoll(key,code){
+        if(this.flag==0||this.hiddenPoints<this.flag){
             this.roll()
         }
     }
@@ -113,45 +143,56 @@ class group{
     }
     displayShop(){
         for(let a=0,la=this.shop.items.length;a<la;a++){
-            displayItem(this.layer,this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y)
+            displayItem(this.layer,this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y,this.flag==this.shop.items[a].cost&&this.flag>0)
             if(this.shop.items[a].type>0){
                 this.layer.noStroke()
                 this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
                 this.layer.textSize(20)
                 if(this.shop.items[a].cost==0){
-                    this.layer.text('Free',this.shop.items[a].position.x,this.shop.items[a].position.y+55)
+                    this.layer.text('Free',this.shop.items[a].position.x,this.shop.items[a].position.y+56)
                 }else{
-                    this.layer.text(numberForm(this.shop.items[a].cost),this.shop.items[a].position.x,this.shop.items[a].position.y+55)
+                    this.layer.text(numberForm(this.shop.items[a].cost),this.shop.items[a].position.x,this.shop.items[a].position.y+56)
                 }
             }
         }
         this.displayPoints()
         this.displayRolls()
+        this.displayDice()
     }
     onClickShop(){
         if(pointInsideBox({position:inputs.rel},{position:{x:this.layer.width-23,y:23},width:46,height:46})){
             transition.trigger=true
             transition.scene='roll'
+        }else if(pointInsideBox({position:inputs.rel},{position:{x:this.layer.width/2,y:23},width:46,height:46})){
+            transition.trigger=true
+            transition.scene='select'
+            this.context={type:0,value:0}
         }
         for(let a=0,la=this.shop.items.length;a<la;a++){
-            if(pointInsideBox({position:inputs.rel},{position:this.shop.items[a].position,width:80,height:80})&&this.points>=this.shop.items[a].cost&&this.shop.items[a].type>=2){
-                switch(this.shop.items[a].type){
-                    case 2:
-                        this.shop.level++
-                        this.setupShop()
-                    break
-                    case 3:
-                        this.setupShop()
-                    break
-                    case 4:
-                        transition.trigger=true
-                        transition.scene='select'
-                        this.context={type:1,value:this.shop.items[a].value}
-                    break
-                }
-                this.points-=this.shop.items[a].cost
-                if(this.shop.items[a].type>=4){
-                    this.shop.items[a].type=1
+            if(pointInsideBox({position:inputs.rel},{position:this.shop.items[a].position,width:80,height:80})&&this.shop.items[a].type>=2){
+                if(this.points>=this.shop.items[a].cost){
+                    switch(this.shop.items[a].type){
+                        case 2:
+                            this.shop.level++
+                            this.setupShop()
+                        break
+                        case 3:
+                            this.setupShop()
+                        break
+                        case 4:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:1,value:this.shop.items[a].value}
+                        break
+                    }
+                    this.points-=this.shop.items[a].cost
+                    this.hiddenPoints-=this.shop.items[a].cost
+                    this.flag=0
+                    if(this.shop.items[a].type>=4){
+                        this.shop.items[a].type=1
+                    }
+                }else{
+                    this.flag=this.shop.items[a].cost
                 }
             }
         }
@@ -163,15 +204,16 @@ class group{
         }
         this.displayPoints()
         this.displayRolls()
+        this.displayDice()
     }
     onClickSelect(){
         if(pointInsideBox({position:inputs.rel},{position:{x:23,y:23},width:46,height:46})){
             transition.trigger=true
-            transtiion.scene='shop'
+            transition.scene='shop'
         }
         if(pointInsideBox({position:inputs.rel},{position:{x:this.layer.width-23,y:23},width:46,height:46})){
             transition.trigger=true
-            transtiion.scene='roll'
+            transition.scene='roll'
         }
         for(let a=0,la=this.dice.length;a<la;a++){
             this.dice[a].onClickSelect()

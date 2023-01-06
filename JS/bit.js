@@ -25,7 +25,7 @@ class bit{
         }
         if(dist(this.position.x,this.position.y,23,23)<this.speed&&!this.used){
             this.used=true
-            dice.points+=this.value
+            main.points+=this.value
         }else if(!this.used){
             this.direction=atan2(23-this.position.x,this.position.y-23)
             this.position.x+=sin(this.direction)*this.speed

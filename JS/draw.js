@@ -5,17 +5,17 @@ function draw(){
     graphics.main.background(types.style[graphics.style].background[1][0],types.style[graphics.style].background[1][1],types.style[graphics.style].background[1][2])
     switch(stage.scene){
         case 'menu':
-            dice.displayMenu()
+            main.displayMenu()
         break
         case 'roll':
-            dice.displayRoll()
-            dice.updateRoll()
+            main.displayRoll()
+            main.updateRoll()
         break
         case 'shop':
-            dice.displayShop()
+            main.displayShop()
         break
         case 'select':
-            dice.displaySelect()
+            main.displaySelect()
         break
     }
     displayTransition(graphics.main,transition)

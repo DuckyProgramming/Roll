@@ -63,10 +63,10 @@ class die{
     onClickSelect(){
         for(let a=0,la=this.sides.length;a<la;a++){
             if(pointInsideBox({position:inputs.rel},{position:{x:this.position.x+(-120+(a%3)*120)*this.size,y:this.position.y+(-60+floor(a/3)*120)*this.size},width:100*this.size,height:100*this.size})){
-                switch(dice.context.type){
+                switch(main.context.type){
                     case 1:
                         if(this.sides[a].type==1&&this.sides[a].value[0]<100){
-                            this.sides[a].value[0]=min(this.sides[a].value[0]+dice.context.value[0],100)
+                            this.sides[a].value[0]=min(this.sides[a].value[0]+main.context.value[0],100)
                             transition.trigger=true
                             transition.scene='shop'
                         }
