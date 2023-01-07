@@ -33,7 +33,7 @@ types={
             {type:1,value:[1],inc:1,multi:1,weight:1},
             {type:1,value:[1],inc:1,multi:1,weight:1},
             {type:1,value:[1],inc:1,multi:1,weight:1},
-        ],rand50:[
+        ],rand:[
             {type:1,value:[0],inc:0,multi:1,weight:1},
             {type:1,value:[0],inc:0,multi:1,weight:1},
             {type:1,value:[0],inc:0,multi:1,weight:1},

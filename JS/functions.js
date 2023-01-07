@@ -124,6 +124,14 @@ function displaySide(layer,x,y,size,side,color,fade){
         layer.textSize(3)
         layer.text(side.inc,-40,-40)
     }
+    if(side.inc<0){
+        layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2],fade)
+        layer.triangle(-44,-38,-36,-38,-40,-34)
+        layer.rect(-40,-42,2,8)
+        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
+        layer.textSize(3)
+        layer.text(side.inc,-40,-40)
+    }
     if(side.multi>1){
         layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
         layer.textSize(15)
@@ -196,7 +204,7 @@ function displayItem(layer,item,x,y,flag){
             layer.text(item.value[0],0,0)
         break
         case 8:
-            displaySide(layer,0,0,1,{type:1,value:item.value},types.style[graphics.style].point,1)
+            displaySide(layer,0,0,0.8,{type:1,value:item.value},types.style[graphics.style].point,1)
         break
         case 9:
             displaySide(layer,0,0,1,{type:4,value:item.value},[0,0,0],1)
@@ -230,9 +238,40 @@ function displayItem(layer,item,x,y,flag){
         case 13:
             layer.fill(types.style[graphics.style].weight[0],types.style[graphics.style].weight[1],types.style[graphics.style].weight[2])
             layer.quad(-21,-12,21,-12,30,12,-30,12)
+            layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
+            layer.textSize(15)
+            layer.text('g',0,0)
         break
         case 14:
             displaySide(layer,0,0,1,{type:5,value:[]},[0,0,0],1)
+        break
+        case 15:
+            layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
+            layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
+            layer.strokeWeight(2)
+            for(let a=0,la=item.sides.length;a<la;a++){
+                layer.rect(-24+(a%3)*24,-24+floor(a/3)*24,20,20,2)
+            }
+            for(let a=0,la=item.sides.length;a<la;a++){
+                displaySide(layer,-24+(a%3)*24,-24+floor(a/3)*24,0.2,item.sides[a],types.style[graphics.style].point,1)
+            }
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(15)
+            layer.text('x'+item.value[0],0,24)
+        break
+        case 16:
+            displaySide(layer,0,0,0.8,{type:1,value:item.value,inc:-1},types.style[graphics.style].point,1)
+        break
+        case 17:
+            layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
+            layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
+            layer.strokeWeight(2)
+            for(let a=0,la=item.sides.length;a<la;a++){
+                layer.rect(-24+(a%3)*24,-12+floor(a/3)*24,20,20,2)
+            }
+            for(let a=0,la=item.sides.length;a<la;a++){
+                displaySide(layer,-24+(a%3)*24,-12+floor(a/3)*24,0.2,{value:['?']},types.style[graphics.style].point,1)
+            }
         break
     }
     layer.translate(-x,-y)

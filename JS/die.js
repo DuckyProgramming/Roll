@@ -21,6 +21,9 @@ class die{
                             if(this.sides[this.side].inc>0){
                                 this.sides[this.side].value[0]=min(this.sides[this.side].value[0]+this.sides[this.side].inc,100)
                             }
+                            if(this.sides[this.side].inc<0){
+                                this.sides[this.side].value[0]=max(this.sides[this.side].value[0]+this.sides[this.side].inc,1)
+                            }
                             this.value=this.sides[this.side].value[0]
                             if(this.sides[this.side].multi>1){
                                 this.value*=this.sides[this.side].multi
@@ -117,8 +120,11 @@ class die{
                         for(let a=0,la=this.sides.length;a<la;a++){
                             this.sides[a].fade=0
                         }
-                        transition.trigger=true
-                        transition.scene='shop'
+                        main.context.value[0]--
+                        if(main.context.value<=0){
+                            transition.trigger=true
+                            transition.scene='shop'
+                        }
                     }
                 break
                 case 8:
@@ -186,6 +192,13 @@ class die{
                     case 11:
                         this.sides[a].type=5
                         this.sides[a].value=[]
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 12:
+                        this.sides[a].type=1
+                        this.sides[a].value[0]=main.context.value[0]
+                        this.sides[a].inc=-1
                         transition.trigger=true
                         transition.scene='shop'
                     break
