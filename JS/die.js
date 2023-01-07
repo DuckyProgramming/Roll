@@ -22,6 +22,9 @@ class die{
                                 this.sides[this.side].value[0]=min(this.sides[this.side].value[0]+this.sides[this.side].inc,100)
                             }
                             this.value=this.sides[this.side].value[0]
+                            if(this.sides[this.side].multi>1){
+                                this.value*=this.sides[this.side].multi
+                            }
                         break
                         case 3:
                             this.value=this.sides[this.side].value[0]*main.dice.length
@@ -99,15 +102,26 @@ class die{
         this.layer.translate(-this.position.x,-this.position.y)
     }
     onClickSelect(){
-        if(pointInsideBox({position:inputs.rel},{position:this.position,width:360*this.size,height:240*this.size})&&this.sides.length==0){
+        if(pointInsideBox({position:inputs.rel},{position:this.position,width:360*this.size,height:240*this.size})){
             switch(main.context.type){
                 case 7:
-                    this.sides=main.context.sides
-                    for(let a=0,la=this.sides.length;a<la;a++){
-                        this.sides[a].fade=0
+                    if(this.sides.length==0){
+                        this.sides=main.context.sides
+                        for(let a=0,la=this.sides.length;a<la;a++){
+                            this.sides[a].fade=0
+                        }
+                        transition.trigger=true
+                        transition.scene='shop'
                     }
-                    transition.trigger=true
-                    transition.scene='shop'
+                break
+                case 8:
+                    for(let a=0,la=this.sides.length;a<la;a++){
+                        if(this.sides[a].type==1){
+                            this.sides[a].inc=main.context.value[0]
+                            transition.trigger=true
+                            transition.scene='shop'
+                        }
+                    }
                 break
             }
         }
@@ -151,6 +165,13 @@ class die{
                         this.sides[a].value[0]=main.context.value[0]
                         transition.trigger=true
                         transition.scene='shop'
+                    break
+                    case 9:
+                        if(this.sides[a].type==1){
+                            this.sides[a].multi=main.context.value[0]
+                            transition.trigger=true
+                            transition.scene='shop'
+                        }
                     break
                 }
             }

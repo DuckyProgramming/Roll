@@ -111,11 +111,16 @@ function displaySide(layer,x,y,size,side,color,fade){
     }
     if(side.inc>0){
         layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2])
-        layer.triangle(-45,-42,-35,-42,-40,-46)
+        layer.triangle(-44,-42,-36,-42,-40,-46)
         layer.rect(-40,-38,2,8)
         layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
         layer.textSize(3)
         layer.text(side.inc,-40,-40)
+    }
+    if(side.multi>1){
+        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+        layer.textSize(15)
+        layer.text('x'+side.multi,40,-40)
     }
     layer.scale(1/size)
     layer.translate(-x,-y)
@@ -196,6 +201,21 @@ function displayItem(layer,item,x,y,flag){
                 displaySide(layer,-24+(a%3)*24,-12+floor(a/3)*24,0.2,item.sides[a],types.style[graphics.style].point,1)
             }
         break
+        case 11:
+            layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2])
+            layer.triangle(-30,-10,10,-10,-10,-30)
+            layer.rect(-10,10,12,40)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(24)
+            layer.text('x6',15,0)
+            layer.textSize(15)
+            layer.text(item.value[0],-10,0)
+        break
+        case 12:
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(30)
+            layer.text('+x'+item.value[0],0,1)
+        break
     }
     layer.translate(-x,-y)
 }
@@ -228,7 +248,7 @@ function copyArray(base){
 function copyList(base){
 	let a=[]
 	for(let b=0,lb=base.length;b<lb;b++){
-		a.push({type:base[b].type,value:copyArray(base[b].value),inc:base[b].inc})
+		a.push({type:base[b].type,value:copyArray(base[b].value),inc:base[b].inc,multi:base[b].multi})
 	}
 	return a
 }
