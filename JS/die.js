@@ -148,9 +148,33 @@ class die{
         this.layer.scale(1/this.size)
         this.layer.translate(-this.position.x,-this.position.y)
     }
+    displaySelectOption(sides,fade){
+        this.layer.translate(this.position.x,this.position.y)
+        this.layer.scale(this.size)
+        this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2],fade)
+        this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2],fade)
+        this.layer.strokeWeight(10)
+        for(let a=0,la=sides.length;a<la;a++){
+            this.layer.rect(-120+(a%3)*120,-60+floor(a/3)*120,100,100,10)
+        }
+        for(let a=0,la=sides.length;a<la;a++){
+            displaySide(this.layer,-120+(a%3)*120,-60+floor(a/3)*120,1,sides[a],types.style[graphics.style].point,fade)
+        }
+        this.layer.scale(1/this.size)
+        this.layer.translate(-this.position.x,-this.position.y)
+    }
     updateSelect(){
         if(this.sides.length>0&&this.fade<1){
             this.fade=round(this.fade*5+1)/5
+        }
+        if(pointInsideBox({position:inputs.rel},{position:this.position,width:360*this.size,height:240*this.size})){
+            switch(main.context.type){
+                case 7:
+                    if(this.sides.length==0){
+                        this.displaySelectOption(main.context.sides,0.5)
+                    }
+                break
+            }
         }
     }
     onClickSelect(){

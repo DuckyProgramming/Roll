@@ -8,7 +8,7 @@ class group{
         this.totalPoints=0
         this.genPoints=0
         this.highestValue=[0,0]
-        this.rolls=1000
+        this.rolls=2000
         this.flag=0
         this.calc={list:[]}
         this.shop={level:3,items:[{price:0,type:0,value:0}]}
@@ -386,7 +386,7 @@ class group{
                     }
                 }
                 for(let a=0;a<2;a++){
-                    let c=floor(random(0,8))
+                    let c=floor(random(0,9))
                     let b=0
                     switch(c){
                         case 0:
@@ -419,6 +419,9 @@ class group{
                         break
                         case 7:
                             this.shop.items.push({cost:round(random(3600,4800)),type:10,value:[],sides:types.die.modded,position:{x:450+a*150,y:450}})
+                        break
+                        case 8:
+                            this.shop.items.push({cost:round(random(1800,2400)),type:10,value:[],sides:types.die.hundred,position:{x:450+a*150,y:450}})
                         break
                     }
                 }
@@ -576,7 +579,7 @@ class group{
     }
     updateSelect(){
         for(let a=0,la=this.dice.length;a<la;a++){
-            this.dice[a].updateRoll()
+            this.dice[a].updateSelect()
         }
     }
     onClickSelect(){

@@ -44,6 +44,13 @@ types={
             {type:1,value:[1],inc:0,multi:1,weight:1},
             {type:1,value:[1],inc:0,multi:1,weight:1},
             {type:1,value:[1],inc:0,multi:1,weight:1},
+        ],hundred:[
+            {type:1,value:[100],inc:0,multi:1,weight:1},
+            {type:1,value:[100],inc:0,multi:1,weight:1},
+            {type:1,value:[100],inc:0,multi:1,weight:1},
+            {type:1,value:[100],inc:0,multi:1,weight:1},
+            {type:1,value:[100],inc:0,multi:1,weight:1},
+            {type:1,value:[100],inc:0,multi:1,weight:1},
         ],inc:[
             {type:1,value:[1],inc:1,multi:1,weight:1},
             {type:1,value:[1],inc:1,multi:1,weight:1},
