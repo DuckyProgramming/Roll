@@ -7,6 +7,7 @@ class die{
         this.diePosition={x:0,y:0}
         this.size=1
         this.value=0
+        this.fade=0
         for(let a=0,la=this.sides.length;a<la;a++){
             this.sides[a].fade=0
         }
@@ -74,13 +75,13 @@ class die{
         if(this.sides.length>0){
             this.layer.translate(this.position.x,this.position.y)
             this.layer.scale(this.size)
-            this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
-            this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
+            this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2],this.fade)
+            this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2],this.fade)
             this.layer.strokeWeight(10)
             this.layer.rect(0,0,100,100,10)
             for(let a=0,la=this.sides.length;a<la;a++){
                 if(this.sides[a].fade>0){
-                    displaySide(this.layer,0,0,1,this.sides[a],types.style[graphics.style].point,this.sides[a].fade)
+                    displaySide(this.layer,0,0,1,this.sides[a],types.style[graphics.style].point,this.sides[a].fade*this.fade)
                 }
             }
             this.layer.scale(1/this.size)
@@ -95,21 +96,29 @@ class die{
                 this.sides[a].fade=round(this.sides[a].fade*5-1)/5
             }
         }
+        if(this.sides.length>0&&this.fade<1){
+            this.fade=round(this.fade*5+1)/5
+        }
     }
     displaySelect(){
         this.layer.translate(this.position.x,this.position.y)
         this.layer.scale(this.size)
-        this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2])
-        this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
+        this.layer.fill(types.style[graphics.style].die[0][0],types.style[graphics.style].die[0][1],types.style[graphics.style].die[0][2],this.fade)
+        this.layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2],this.fade)
         this.layer.strokeWeight(10)
         for(let a=0,la=this.sides.length;a<la;a++){
             this.layer.rect(-120+(a%3)*120,-60+floor(a/3)*120,100,100,10)
         }
         for(let a=0,la=this.sides.length;a<la;a++){
-            displaySide(this.layer,-120+(a%3)*120,-60+floor(a/3)*120,1,this.sides[a],types.style[graphics.style].point,1)
+            displaySide(this.layer,-120+(a%3)*120,-60+floor(a/3)*120,1,this.sides[a],types.style[graphics.style].point,this.fade)
         }
         this.layer.scale(1/this.size)
         this.layer.translate(-this.position.x,-this.position.y)
+    }
+    updateSelect(){
+        if(this.sides.length>0&&this.fade<1){
+            this.fade=round(this.fade*5+1)/5
+        }
     }
     onClickSelect(){
         if(pointInsideBox({position:inputs.rel},{position:this.position,width:360*this.size,height:240*this.size})){
@@ -199,6 +208,15 @@ class die{
                         this.sides[a].type=1
                         this.sides[a].value[0]=main.context.value[0]
                         this.sides[a].inc=-1
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 13:
+                        for(let b=0,lb=this.sides.length;b<lb;b++){
+                            if(a!=b){
+                                this.sides[b]=copySide(this.sides[a])
+                            }
+                        }
                         transition.trigger=true
                         transition.scene='shop'
                     break

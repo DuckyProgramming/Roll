@@ -26,6 +26,13 @@ types={
             {type:1,value:[4],inc:0,multi:1,weight:1},
             {type:1,value:[5],inc:0,multi:1,weight:1},
             {type:1,value:[6],inc:0,multi:1,weight:1},
+        ],one:[
+            {type:1,value:[1],inc:0,multi:1,weight:1},
+            {type:1,value:[1],inc:0,multi:1,weight:1},
+            {type:1,value:[1],inc:0,multi:1,weight:1},
+            {type:1,value:[1],inc:0,multi:1,weight:1},
+            {type:1,value:[1],inc:0,multi:1,weight:1},
+            {type:1,value:[1],inc:0,multi:1,weight:1},
         ],inc:[
             {type:1,value:[1],inc:1,multi:1,weight:1},
             {type:1,value:[1],inc:1,multi:1,weight:1},
@@ -54,6 +61,13 @@ types={
             {type:1,value:[24],inc:0,multi:1,weight:1},
             {type:1,value:[30],inc:0,multi:1,weight:1},
             {type:1,value:[36],inc:0,multi:1,weight:1},
+        ],copy:[
+            {type:1,value:['?'],inc:0,multi:1,weight:1},
+            {type:1,value:['#'],inc:0,multi:1,weight:1},
+            {type:1,value:['?'],inc:0,multi:1,weight:1},
+            {type:1,value:['?'],inc:0,multi:1,weight:1},
+            {type:1,value:['?'],inc:0,multi:1,weight:1},
+            {type:1,value:['?'],inc:0,multi:1,weight:1},
         ],
     },
 }

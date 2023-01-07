@@ -267,11 +267,14 @@ function displayItem(layer,item,x,y,flag){
             layer.stroke(types.style[graphics.style].die[1][0],types.style[graphics.style].die[1][1],types.style[graphics.style].die[1][2])
             layer.strokeWeight(2)
             for(let a=0,la=item.sides.length;a<la;a++){
-                layer.rect(-24+(a%3)*24,-12+floor(a/3)*24,20,20,2)
+                layer.rect(-24+(a%3)*24,-24+floor(a/3)*24,20,20,2)
             }
             for(let a=0,la=item.sides.length;a<la;a++){
-                displaySide(layer,-24+(a%3)*24,-12+floor(a/3)*24,0.2,{value:['?']},types.style[graphics.style].point,1)
+                displaySide(layer,-24+(a%3)*24,-24+floor(a/3)*24,0.2,item.sides[a],types.style[graphics.style].point,1)
             }
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(15)
+            layer.text(item.value[0],0,24)
         break
     }
     layer.translate(-x,-y)
@@ -308,6 +311,9 @@ function copyList(base){
 		a.push({type:base[b].type,value:copyArray(base[b].value),inc:base[b].inc,multi:base[b].multi,weight:base[b].weight})
 	}
 	return a
+}
+function copySide(base){
+    return {type:base.type,value:copyArray(base.value),inc:base.inc,multi:base.multi,weight:base.weight,fade:base.fade}
 }
 function updateMouse(layer){
     inputs.mouse.x=mouseX

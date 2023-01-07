@@ -16,6 +16,7 @@ function draw(){
         break
         case 'select':
             main.displaySelect()
+            main.updateSelect()
         break
     }
     displayTransition(graphics.main,transition)

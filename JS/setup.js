@@ -5,7 +5,6 @@ function setup(){
     main=new group(graphics.main)
     main.addDie(copyList(types.die.default),12)
 
-    //set all faces
     //10% 1000 lottery
     //1x10 weighted, 1x5 modded die
     //omni multiplier 2-4

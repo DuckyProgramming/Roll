@@ -283,22 +283,25 @@ class group{
                     let c=floor(random(0,10))
                     let b=0
                     switch(c){
-                        case 0: case 1: case 2: case 3: case 4:
+                        case 0: case 1: case 2: case 3:
                             b=floor(random(1,6))
                             this.shop.items.push({cost:round(random(b*30,b*40)*(1+this.totalPoints/5000)),type:4,value:[b],position:{x:300+a*150,y:150}})
                         break
-                        case 5:
+                        case 4:
                             this.shop.items.push({cost:round(random(450,600)*(1+this.totalPoints/5000)),type:7,value:[1],position:{x:300+a*150,y:150}})
                         break
-                        case 6:
+                        case 5:
                             this.shop.items.push({cost:round(random(1975,2700)*(1+this.totalPoints/5000)),type:11,value:[1],position:{x:300+a*150,y:150}})
                         break
-                        case 7: case 8:
+                        case 6: case 7:
                             b=floor(random(2,6))
                             this.shop.items.push({cost:round(random(b*525,b*700)*(1+this.totalPoints/5000)),type:12,value:[b],position:{x:300+a*150,y:150}})
                         break
-                        case 9:
+                        case 8:
                             this.shop.items.push({cost:round(random(4500,6000)*(1+this.totalPoints/5000)),type:13,value:[2],position:{x:300+a*150,y:150}})
+                        break
+                        case 9:
+                            this.shop.items.push({cost:round(random(6000,8000)*(1+this.totalPoints/5000)),type:17,value:['? = #'],sides:types.die.copy,position:{x:300+a*150,y:150}})
                         break
                     }
                 }
@@ -354,7 +357,7 @@ class group{
                         break
                         case 5:
                             b=floor(random(2,6))
-                            this.shop.items.push({cost:round(random(b*450,b*600)),type:15,value:[b],sides:types.die.default,position:{x:450+a*150,y:450}})
+                            this.shop.items.push({cost:round(random(b*450,b*600)),type:15,value:[b],sides:types.die.one,position:{x:450+a*150,y:450}})
                         break
                         case 6:
                             this.shop.items.push({cost:round(random(4200,5250)),type:10,value:[],sides:types.die.rand,position:{x:450+a*150,y:450}})
@@ -469,6 +472,11 @@ class group{
                             transition.scene='select'
                             this.context={type:12,value:this.shop.items[a].value}
                         break
+                        case 17:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:13,value:this.shop.items[a].value}
+                        break
                     }
                     this.points-=this.shop.items[a].cost
                     this.hiddenPoints-=this.shop.items[a].cost
@@ -490,6 +498,11 @@ class group{
         this.displayPoints()
         this.displayRolls()
         this.displayDice()
+    }
+    updateSelect(){
+        for(let a=0,la=this.dice.length;a<la;a++){
+            this.dice[a].updateRoll()
+        }
     }
     onClickSelect(){
         if(pointInsideBox({position:inputs.rel},{position:{x:23,y:23},width:46,height:46})){
