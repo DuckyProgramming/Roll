@@ -51,6 +51,13 @@ class die{
                         break
                     }
                 break
+                case 2:
+                    for(let a=0,la=this.sides.length;a<la;a++){
+                        if(this.sides[a].type==5){
+                            this.value*=2
+                        }
+                    }
+                break
             }
         }
     }
@@ -172,6 +179,15 @@ class die{
                             transition.trigger=true
                             transition.scene='shop'
                         }
+                    break
+                    case 10:
+                        this.sides[a].weight=3
+                    break
+                    case 11:
+                        this.sides[a].type=5
+                        this.sides[a].value=[]
+                        transition.trigger=true
+                        transition.scene='shop'
                     break
                 }
             }

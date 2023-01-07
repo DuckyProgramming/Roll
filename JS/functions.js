@@ -79,48 +79,59 @@ function displaySide(layer,x,y,size,side,color,fade){
             }
         break
         case 2:
-            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8,fade)
             layer.rect(-20,0,18,18,3)
-            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
             layer.textSize(30)
             layer.text('x'+side.value[0],8,0)
             layer.textSize(15)
             layer.text('?',-20,1)
         break
         case 3:
-            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8,fade)
             layer.rect(-22,0,18,18,3)
-            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
             layer.textSize(24)
             layer.text('x'+side.value[0],10,0)
             layer.textSize(15)
             layer.text('#',-22,1)
         break
         case 4:
-            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8)
+            layer.fill(types.style[graphics.style].die[0][0]*0.8,types.style[graphics.style].die[0][1]*0.8,types.style[graphics.style].die[0][2]*0.8,fade)
             layer.rect(0,0,12,36)
             layer.rect(0,0,36,12)
             layer.triangle(-12,-18,12,-18,0,-30)
             layer.triangle(-18,-12,-18,12,-30,0)
             layer.triangle(12,18,-12,18,0,30)
             layer.triangle(18,12,18,-12,30,0)
-            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
             layer.textSize(15)
             layer.text('x'+side.value[0],0,1)
         break
+        case 5:
+            layer.fill(types.style[graphics.style].void[0],types.style[graphics.style].void[1],types.style[graphics.style].void[2],fade)
+            for(let a=0;a<6;a++){
+                layer.arc(cos(a*60)*5,sin(a*60)*5,50,50,a*60-24,a*60+24)
+            }
+        break
     }
+    layer.noStroke()
     if(side.inc>0){
-        layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2])
+        layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2],fade)
         layer.triangle(-44,-42,-36,-42,-40,-46)
         layer.rect(-40,-38,2,8)
-        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
         layer.textSize(3)
         layer.text(side.inc,-40,-40)
     }
     if(side.multi>1){
-        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
         layer.textSize(15)
         layer.text('x'+side.multi,40,-40)
+    }
+    if(side.weight>1){
+        layer.fill(types.style[graphics.style].weight[0],types.style[graphics.style].weight[1],types.style[graphics.style].weight[2],fade)
+        layer.quad(-45.25,37,-34.75,37,-32.5,43,-47.5,43)
     }
     layer.scale(1/size)
     layer.translate(-x,-y)
@@ -216,6 +227,13 @@ function displayItem(layer,item,x,y,flag){
             layer.textSize(30)
             layer.text('+x'+item.value[0],0,1)
         break
+        case 13:
+            layer.fill(types.style[graphics.style].weight[0],types.style[graphics.style].weight[1],types.style[graphics.style].weight[2])
+            layer.quad(-21,-12,21,-12,30,12,-30,12)
+        break
+        case 14:
+            displaySide(layer,0,0,1,{type:5,value:[]},[0,0,0],1)
+        break
     }
     layer.translate(-x,-y)
 }
@@ -248,7 +266,7 @@ function copyArray(base){
 function copyList(base){
 	let a=[]
 	for(let b=0,lb=base.length;b<lb;b++){
-		a.push({type:base[b].type,value:copyArray(base[b].value),inc:base[b].inc,multi:base[b].multi})
+		a.push({type:base[b].type,value:copyArray(base[b].value),inc:base[b].inc,multi:base[b].multi,weight:base[b].weight})
 	}
 	return a
 }
