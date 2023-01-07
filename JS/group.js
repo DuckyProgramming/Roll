@@ -7,7 +7,7 @@ class group{
         this.hiddenPoints=0
         this.totalPoints=0
         this.genPoints=0
-        this.highestValue=0
+        this.highestValue=[0,0]
         this.rolls=1000
         this.flag=0
         this.calc={list:[]}
@@ -45,7 +45,7 @@ class group{
     roll(){
         if(this.rolls>0){
             this.rolls--
-            this.highestValue=0
+            this.highestValue=[0,0]
             for(let a=0,la=this.dice.length;a<la;a++){
                 this.calc.list=[]
                 for(let b=0,lb=this.dice[a].sides.length;b<lb;b++){
@@ -64,21 +64,59 @@ class group{
                 this.hiddenPoints+=this.dice[a].value
                 this.totalPoints+=this.dice[a].value
                 this.genPoints=this.dice[a].value
-                while(this.genPoints>200){
-                    this.genPoints-=100
-                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,100))
+                if(this.dice.value>40000&&this.genPoints>0){
+                    this.genPoints=0
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,this.genPoints))
+                }else{
+                    while(this.genPoints>2000){
+                        this.genPoints-=2000
+                        this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,2000))
+                    }
                 }
-                while(this.genPoints>40){
-                    this.genPoints-=20
-                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,20))
+                if(this.dice.value>10000&&this.genPoints>0){
+                    this.genPoints=0
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,this.genPoints))
+                }else{
+                    while(this.genPoints>500){
+                        this.genPoints-=500
+                        this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,500))
+                    }
                 }
-                while(this.genPoints>10){
-                    this.genPoints-=5
-                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,5))
+                if(this.dice.value>2000&&this.genPoints>0){
+                    this.genPoints=0
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,this.genPoints))
+                }else{
+                    while(this.genPoints>100){
+                        this.genPoints-=100
+                        this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,100))
+                    }
                 }
-                while(this.genPoints>0){
-                    this.genPoints--
-                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,1))
+                if(this.dice.value>400&&this.genPoints>0){
+                    this.genPoints=0
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,this.genPoints))
+                }else{
+                    while(this.genPoints>20){
+                        this.genPoints-=20
+                        this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,20))
+                    }
+                }
+                if(this.dice.value>100&&this.genPoints>0){
+                    this.genPoints=0
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,this.genPoints))
+                }else{
+                    while(this.genPoints>5){
+                        this.genPoints-=5
+                        this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,5))
+                    }
+                }
+                if(this.dice.value>20&&this.genPoints>0){
+                    this.genPoints=0
+                    this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,this.genPoints))
+                }else{
+                    while(this.genPoints>0){
+                        this.genPoints--
+                        this.bits.push(new bit(this.layer,this.dice[a].position.x+random(-40,40)*this.dice[a].size,this.dice[a].position.y+random(-40,40)*this.dice[a].size,1))
+                    }
                 }
             }
         }
@@ -163,10 +201,10 @@ class group{
                     this.shop.items.push({cost:round(random(b*30,b*40)*(1+this.totalPoints/5000)),type:4,value:[b],position:{x:300+a*150,y:150}})
                 }
                 for(let a=0;a<4;a++){
-                    this.shop.items.push({cost:0,type:0,value:[0],position:{x:300+a*150,y:300}})
+                    this.shop.items.push({cost:0,type:0,value:[],position:{x:300+a*150,y:300}})
                 }
                 for(let a=0;a<2;a++){
-                    this.shop.items.push({cost:0,type:0,value:[0],position:{x:450+a*150,y:450}})
+                    this.shop.items.push({cost:0,type:0,value:[],position:{x:450+a*150,y:450}})
                 }
                 this.shop.items.push({cost:750,type:2,value:[],position:{x:150,y:225}})
                 this.shop.items.push({cost:round(random(90,120)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
@@ -205,10 +243,10 @@ class group{
                     }
                 }
                 for(let a=0;a<2;a++){
-                    this.shop.items.push({cost:0,type:0,value:[0],position:{x:450+a*150,y:450}})
+                    this.shop.items.push({cost:0,type:0,value:[],position:{x:450+a*150,y:450}})
                 }
                 this.shop.items.push({cost:1500,type:2,value:[],position:{x:150,y:225}})
-                this.shop.items.push({cost:round(random(90,120)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
+                this.shop.items.push({cost:round(random(135,180)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
             break
             case 2:
                 this.shop.items=[]
@@ -275,7 +313,7 @@ class group{
                     }
                 }
                 this.shop.items.push({cost:3000,type:2,value:[],position:{x:150,y:225}})
-                this.shop.items.push({cost:round(random(90,120)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
+                this.shop.items.push({cost:round(random(225,300)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
             break
             case 3:
                 this.shop.items=[]
@@ -381,8 +419,8 @@ class group{
                         break
                     }
                 }
-                this.shop.items.push({cost:3000,type:2,value:[],position:{x:150,y:225}})
-                this.shop.items.push({cost:round(random(90,120)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
+                this.shop.items.push({cost:3000,type:0,value:[],position:{x:150,y:225}})
+                this.shop.items.push({cost:round(random(450,600)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
             break
         }
     }

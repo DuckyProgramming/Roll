@@ -29,7 +29,7 @@ class die{
                             if(this.sides[this.side].multi>1){
                                 this.value*=this.sides[this.side].multi
                             }
-                            main.highestValue=max(main.highestValue,this.value)
+                            main.highestValue[0]=max(main.highestValue[0],this.value)
                         break
                         case 3:
                             this.value=this.sides[this.side].value[0]*main.dice.length
@@ -44,7 +44,7 @@ class die{
                 case 1:
                     switch(this.sides[this.side].type){
                         case 2:
-                            this.value=main.highestValue*this.sides[this.side].value[0]
+                            this.value=main.highestValue[0]*this.sides[this.side].value[0]
                         break
                         case 4:
                             for(let a=0,la=main.dice.length;a<la;a++){
@@ -70,8 +70,14 @@ class die{
                             }
                         break
                     }
+                    main.highestValue[1]=max(main.highestValue[1],this.value)
                 break
                 case 3:
+                    switch(this.sides[this.side].type){
+                        case 8:
+                            this.value=main.highestValue[1]
+                        break
+                    }
                 break
                 case 4:
                     for(let a=0,la=this.sides.length;a<la;a++){
@@ -143,7 +149,7 @@ class die{
             switch(main.context.type){
                 case 7:
                     if(this.sides.length==0){
-                        this.sides=main.context.sides
+                        this.sides=copyList(main.context.sides)
                         for(let a=0,la=this.sides.length;a<la;a++){
                             this.sides[a].fade=0
                         }
@@ -215,6 +221,8 @@ class die{
                     break
                     case 10:
                         this.sides[a].weight=3
+                        transition.trigger=true
+                        transition.scene='shop'
                     break
                     case 11:
                         this.sides[a].type=5
@@ -247,6 +255,11 @@ class die{
                     case 15:
                         this.sides[a].type=7
                         this.sides[a].value=main.context.value
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 16:
+                        this.sides[a].type=8
                         transition.trigger=true
                         transition.scene='shop'
                     break
