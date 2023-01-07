@@ -189,7 +189,8 @@ class group{
                             this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
                         break
                         case 2:
-                            this.shop.items.push({cost:round(random(1200,1600)*(1+this.totalPoints/5000)),type:9,value:[1],position:{x:300+a*150,y:300}})
+                            b=floor(random(1,3))
+                            this.shop.items.push({cost:round(random(b*1200,b*1600)*(1+this.totalPoints/5000)),type:9,value:[b],position:{x:300+a*150,y:300}})
                         break
                     }
                 }
@@ -227,7 +228,8 @@ class group{
                             this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
                         break
                         case 2:
-                            this.shop.items.push({cost:round(random(1200,1600)*(1+this.totalPoints/5000)),type:9,value:[1],position:{x:300+a*150,y:300}})
+                            b=floor(random(1,3))
+                            this.shop.items.push({cost:round(random(b*1200,b*1600)*(1+this.totalPoints/5000)),type:9,value:[b],position:{x:300+a*150,y:300}})
                         break
                         case 3:
                             b=floor(random(10,101))
@@ -236,7 +238,24 @@ class group{
                     }
                 }
                 for(let a=0;a<2;a++){
-                    this.shop.items.push({cost:round(random(2400,3200)),type:10,value:[],sides:types.die.default,position:{x:300+a*150,y:450}})
+                    let c=floor(random(0,4))
+                    switch(c){
+                        case 0:
+                            this.shop.items.push({cost:round(random(600,800)),type:10,value:[],sides:types.die.default,position:{x:300+a*150,y:450}})
+                        break
+                        case 1:
+                            this.shop.items.push({cost:round(random(3000,4000)),type:10,value:[],sides:types.die.inc,position:{x:300+a*150,y:450}})
+                        break
+                        case 2:
+                            this.shop.items.push({cost:round(random(2400,3000)),type:10,value:[],sides:types.die.rand50,position:{x:300+a*150,y:450}})
+                            for(let b=0,lb=this.shop.items[this.shop.items.length-1].sides.length;b<lb;b++){
+                                this.shop.items[this.shop.items.length-1].sides[b].value[0]=floor(random(10,51))
+                            }
+                        break
+                        case 3:
+                            this.shop.items.push({cost:round(random(1800,2400)),type:10,value:[],sides:types.die.default6,position:{x:300+a*150,y:450}})
+                        break
+                    }
                 }
                 for(let a=0;a<2;a++){
                     this.shop.items.push({cost:0,type:0,value:[0],position:{x:600+a*150,y:450}})

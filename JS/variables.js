@@ -31,6 +31,20 @@ types={
             {type:1,value:[1],inc:1},
             {type:1,value:[1],inc:1},
             {type:1,value:[1],inc:1},
+        ],rand50:[
+            {type:1,value:[0],inc:0},
+            {type:1,value:[0],inc:0},
+            {type:1,value:[0],inc:0},
+            {type:1,value:[0],inc:0},
+            {type:1,value:[0],inc:0},
+            {type:1,value:[0],inc:0},
+        ],default6:[
+            {type:1,value:[6],inc:0},
+            {type:1,value:[12],inc:0},
+            {type:1,value:[18],inc:0},
+            {type:1,value:[24],inc:0},
+            {type:1,value:[30],inc:0},
+            {type:1,value:[36],inc:0},
         ],
     },
 }

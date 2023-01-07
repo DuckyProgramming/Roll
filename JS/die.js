@@ -41,7 +41,7 @@ class die{
                                     main.dice[a].diePosition.x==this.diePosition.x+1&&main.dice[a].diePosition.y==this.diePosition.y||
                                     main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y-1||
                                     main.dice[a].diePosition.x==this.diePosition.x&&main.dice[a].diePosition.y==this.diePosition.y+1
-                                )&&main.dice[a].sides[main.dice[a].side].type==1){
+                                )&&main.dice[a].sides.length>0&&main.dice[a].sides[main.dice[a].side].type==1){
                                     this.value+=main.dice[a].value
                                 }
                             }
@@ -103,6 +103,9 @@ class die{
             switch(main.context.type){
                 case 7:
                     this.sides=main.context.sides
+                    for(let a=0,la=this.sides.length;a<la;a++){
+                        this.sides[a].fade=0
+                    }
                     transition.trigger=true
                     transition.scene='shop'
                 break
