@@ -72,6 +72,13 @@ types={
             {type:1,value:[8],inc:0,multi:1,weight:1},
             {type:1,value:[10],inc:0,multi:1,weight:1},
             {type:1,value:[12],inc:0,multi:1,weight:1},
+        ],default4:[
+            {type:1,value:[4],inc:0,multi:1,weight:1},
+            {type:1,value:[8],inc:0,multi:1,weight:1},
+            {type:1,value:[12],inc:0,multi:1,weight:1},
+            {type:1,value:[16],inc:0,multi:1,weight:1},
+            {type:1,value:[20],inc:0,multi:1,weight:1},
+            {type:1,value:[24],inc:0,multi:1,weight:1},
         ],default6:[
             {type:1,value:[6],inc:0,multi:1,weight:1},
             {type:1,value:[12],inc:0,multi:1,weight:1},
@@ -79,6 +86,13 @@ types={
             {type:1,value:[24],inc:0,multi:1,weight:1},
             {type:1,value:[30],inc:0,multi:1,weight:1},
             {type:1,value:[36],inc:0,multi:1,weight:1},
+        ],default10:[
+            {type:1,value:[10],inc:0,multi:1,weight:1},
+            {type:1,value:[20],inc:0,multi:1,weight:1},
+            {type:1,value:[30],inc:0,multi:1,weight:1},
+            {type:1,value:[40],inc:0,multi:1,weight:1},
+            {type:1,value:[50],inc:0,multi:1,weight:1},
+            {type:1,value:[60],inc:0,multi:1,weight:1},
         ],copy:[
             {type:1,value:['?'],inc:0,multi:1,weight:1},
             {type:1,value:['#'],inc:0,multi:1,weight:1},
@@ -93,6 +107,20 @@ types={
             {type:1,value:[1],inc:0,multi:5,weight:1},
             {type:1,value:[1],inc:0,multi:5,weight:1},
             {type:1,value:[1],inc:0,multi:10,weight:3},
+        ],faceMulti:[
+            {type:2,value:[2],inc:0,multi:0,weight:1},
+            {type:2,value:[2],inc:0,multi:0,weight:1},
+            {type:2,value:[3],inc:0,multi:0,weight:1},
+            {type:2,value:[3],inc:0,multi:0,weight:1},
+            {type:2,value:[4],inc:0,multi:0,weight:1},
+            {type:2,value:[5],inc:0,multi:0,weight:1},
+        ],farmer:[
+            {type:10,value:[50],inc:0,multi:0,weight:1},
+            {type:10,value:[50],inc:0,multi:0,weight:1},
+            {type:10,value:[50],inc:0,multi:0,weight:1},
+            {type:10,value:[50],inc:0,multi:0,weight:1},
+            {type:10,value:[50],inc:0,multi:0,weight:1},
+            {type:10,value:[50],inc:0,multi:0,weight:1},
         ],
     },
 }

@@ -10,6 +10,7 @@ class die{
         this.fade=0
         for(let a=0,la=this.sides.length;a<la;a++){
             this.sides[a].fade=0
+            this.sides[a].rolls=0
         }
     }
     determineValue(stage){
@@ -17,6 +18,7 @@ class die{
             switch(stage){
                 case 0:
                     this.value=0
+                    this.sides[this.side].rolls++
                     switch(this.sides[this.side].type){
                         case 1:
                             if(this.sides[this.side].inc>0){
@@ -26,10 +28,10 @@ class die{
                                 this.sides[this.side].value[0]=max(this.sides[this.side].value[0]+this.sides[this.side].inc,1)
                             }
                             this.value=this.sides[this.side].value[0]
+                            main.highestValue[0]=max(main.highestValue[0],this.value)
                             if(this.sides[this.side].multi>1){
                                 this.value*=this.sides[this.side].multi
                             }
-                            main.highestValue[0]=max(main.highestValue[0],this.value)
                         break
                         case 3:
                             this.value=this.sides[this.side].value[0]*main.dice.length
@@ -37,6 +39,11 @@ class die{
                         case 6:
                             if(floor(random(0,this.sides[this.side].value[1]))==0){
                                 this.value=this.sides[this.side].value[0]
+                            }
+                        break
+                        case 10:
+                            if(this.sides[this.side].rolls%this.sides[this.side].value==0){
+                                main.addDie(copyList(types.die.default),-1,1)
                             }
                         break
                     }
@@ -99,10 +106,10 @@ class die{
         }
     }
     positionSelf(position){
-        this.position.x=210+(position%5)*120
-        this.position.y=60+floor(position/5)*120
-        this.diePosition.x=position%5
-        this.diePosition.y=floor(position/5)
+        this.position.x=90+(position%7)*120
+        this.position.y=60+floor(position/7)*120
+        this.diePosition.x=position%7
+        this.diePosition.y=floor(position/7)
     }
     displayRoll(){
         if(this.sides.length>0){
@@ -185,12 +192,14 @@ class die{
                         this.sides=copyList(main.context.sides)
                         for(let a=0,la=this.sides.length;a<la;a++){
                             this.sides[a].fade=0
+                            this.sides[a].rolls=0
                         }
                         main.context.value[0]--
                         if(main.context.value<=0){
                             transition.trigger=true
-                            transition.scene='shop'
+                            transition.scene='roll'
                         }
+                        this.side=0
                     }
                 break
                 case 8:
@@ -271,13 +280,15 @@ class die{
                         transition.scene='shop'
                     break
                     case 13:
-                        for(let b=0,lb=this.sides.length;b<lb;b++){
-                            if(a!=b){
-                                this.sides[b]=copySide(this.sides[a])
+                        if(this.sides[a].type==1){
+                            for(let b=0,lb=this.sides.length;b<lb;b++){
+                                if(a!=b){
+                                    this.sides[b]=copySide(this.sides[a])
+                                }
                             }
+                            transition.trigger=true
+                            transition.scene='shop'
                         }
-                        transition.trigger=true
-                        transition.scene='shop'
                     break
                     case 14:
                         this.sides[a].type=6
@@ -299,6 +310,12 @@ class die{
                     case 17:
                         this.sides[a].type=9
                         this.sides[a].value=main.context.value
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 18:
+                        this.sides[a].type=10
+                        this.sides[a].value[0]=main.context.value[0]
                         transition.trigger=true
                         transition.scene='shop'
                     break

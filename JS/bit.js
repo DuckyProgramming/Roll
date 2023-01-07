@@ -12,7 +12,7 @@ class bit{
     display(){
         this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
         this.layer.noStroke()
-        this.layer.ellipse(this.position.x,this.position.y,log(this.value)+6)
+        this.layer.ellipse(this.position.x,this.position.y,log(this.value)*1.5+6)
     }
     update(){
         if(this.fade<1&&!this.used){

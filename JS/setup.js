@@ -3,9 +3,7 @@ function setup(){
     setupGraphics()
 
     main=new group(graphics.main)
-    main.addDie(copyList(types.die.default),12)
-
-    //die adder?
+    main.addDie(copyList(types.die.default),17,1)
 }
 function windowResized(){
     resizeCanvas(windowWidth-50,windowHeight-50)
