@@ -18,6 +18,16 @@ types={
             refresh:[80,80,80],inc:[80,80,80],
             weight:[100,100,100],void:[0,0,0],
         }
+    ],side:[
+        {name:'',phase:-1},
+        {name:'Numeric',phase:0},
+        {name:'Face Multiplier',phase:1},
+        {name:'Die Number Multiplier',phase:0},
+        {name:'Orthogonal Multiplier',phase:1},
+        {name:'Void',phase:4},
+        {name:'Lottery',phase:0},
+        {name:'Multiplier',phase:2},
+        {name:'Wildcard',phase:3},
     ],die:{
         default:[
             {type:1,value:[1],inc:0,multi:1,weight:1},
@@ -68,6 +78,13 @@ types={
             {type:1,value:['?'],inc:0,multi:1,weight:1},
             {type:1,value:['?'],inc:0,multi:1,weight:1},
             {type:1,value:['?'],inc:0,multi:1,weight:1},
+        ],modded:[
+            {type:1,value:[1],inc:0,multi:5,weight:1},
+            {type:1,value:[1],inc:0,multi:5,weight:1},
+            {type:1,value:[1],inc:0,multi:5,weight:1},
+            {type:1,value:[1],inc:0,multi:5,weight:1},
+            {type:1,value:[1],inc:0,multi:5,weight:1},
+            {type:1,value:[1],inc:0,multi:10,weight:3},
         ],
     },
 }

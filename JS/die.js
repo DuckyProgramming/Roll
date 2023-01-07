@@ -29,12 +29,17 @@ class die{
                             if(this.sides[this.side].multi>1){
                                 this.value*=this.sides[this.side].multi
                             }
+                            main.highestValue=max(main.highestValue,this.value)
                         break
                         case 3:
                             this.value=this.sides[this.side].value[0]*main.dice.length
                         break
+                        case 6:
+                            if(floor(random(0,this.sides[this.side].value[1]))==0){
+                                this.value=this.sides[this.side].value[0]
+                            }
+                        break
                     }
-                    main.highestValue=max(main.highestValue,this.value)
                 break
                 case 1:
                     switch(this.sides[this.side].type){
@@ -56,6 +61,19 @@ class die{
                     }
                 break
                 case 2:
+                    switch(this.sides[this.side].type){
+                        case 7:
+                            for(let a=0,la=main.dice.length;a<la;a++){
+                                if(main.dice[a].sides.length>0&&types.side[main.dice[a].sides[main.dice[a].side].type].phase<2){
+                                    this.value+=main.dice[a].value*this.sides[this.side].value[0]
+                                }
+                            }
+                        break
+                    }
+                break
+                case 3:
+                break
+                case 4:
                     for(let a=0,la=this.sides.length;a<la;a++){
                         if(this.sides[a].type==5){
                             this.value*=2
@@ -217,6 +235,18 @@ class die{
                                 this.sides[b]=copySide(this.sides[a])
                             }
                         }
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 14:
+                        this.sides[a].type=6
+                        this.sides[a].value=main.context.value
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 15:
+                        this.sides[a].type=7
+                        this.sides[a].value=main.context.value
                         transition.trigger=true
                         transition.scene='shop'
                     break

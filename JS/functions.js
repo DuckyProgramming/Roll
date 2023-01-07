@@ -114,23 +114,27 @@ function displaySide(layer,x,y,size,side,color,fade){
                 layer.arc(cos(a*60)*5,sin(a*60)*5,50,50,a*60-24,a*60+24)
             }
         break
+        case 6:
+            layer.textSize(40)
+            layer.text(side.value[0],0,-6)
+            layer.textSize(20)
+            layer.text(100/side.value[1]+'%',0,24)
+        break
+        case 7:
+            layer.textSize(50)
+            layer.text('x'+side.value[0],0,0)
+        break
     }
     layer.noStroke()
     if(side.inc>0){
         layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2],fade)
         layer.triangle(-44,-42,-36,-42,-40,-46)
         layer.rect(-40,-38,2,8)
-        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
-        layer.textSize(3)
-        layer.text(side.inc,-40,-40)
     }
     if(side.inc<0){
         layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2],fade)
         layer.triangle(-44,-38,-36,-38,-40,-34)
         layer.rect(-40,-42,2,8)
-        layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
-        layer.textSize(3)
-        layer.text(side.inc,-40,-40)
     }
     if(side.multi>1){
         layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
@@ -275,6 +279,12 @@ function displayItem(layer,item,x,y,flag){
             layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
             layer.textSize(15)
             layer.text(item.value[0],0,24)
+        break
+        case 18:
+            displaySide(layer,0,0,0.8,{type:6,value:item.value},types.style[graphics.style].point,1)
+        break
+        case 19:
+            displaySide(layer,0,0,0.8,{type:7,value:item.value},types.style[graphics.style].point,1)
         break
     }
     layer.translate(-x,-y)

@@ -55,7 +55,7 @@ class group{
                 }
                 this.dice[a].side=this.calc.list[floor(random(0,this.calc.list.length))]
             }
-            for(let a=0;a<3;a++){
+            for(let a=0;a<5;a++){
                 for(let b=0,lb=this.dice.length;b<lb;b++){
                     this.dice[b].determineValue(a)
                 }
@@ -306,7 +306,7 @@ class group{
                     }
                 }
                 for(let a=0;a<4;a++){
-                    let c=floor(random(0,6))
+                    let c=floor(random(0,9))
                     let b=0
                     switch(c){
                         case 0:
@@ -331,10 +331,21 @@ class group{
                         case 5:
                             this.shop.items.push({cost:round(random(750,1000)*(1+this.totalPoints/5000)),type:16,value:[100],position:{x:300+a*150,y:300}})
                         break
+                        case 6:
+                            b=floor(random(0,2))
+                            this.shop.items.push({cost:round(random(b*675,b*900)*(1+this.totalPoints/5000)),type:18,value:[1000-b*800,10-b*6],position:{x:300+a*150,y:300}})
+                        break
+                        case 7:
+                            b=floor(random(2,5))
+                            this.shop.items.push({cost:round(random(b*3750,b*5000)*(1+this.totalPoints/5000)),type:19,value:[b],position:{x:300+a*150,y:300}})
+                        break
+                        case 8:
+                            this.shop.items.push({cost:round(random(6750,9000)*(1+this.totalPoints/5000)),type:20,value:[],position:{x:300+a*150,y:300}})
+                        break
                     }
                 }
                 for(let a=0;a<2;a++){
-                    let c=floor(random(0,7))
+                    let c=floor(random(0,8))
                     let b=0
                     switch(c){
                         case 0:
@@ -364,6 +375,9 @@ class group{
                             for(let b=0,lb=this.shop.items[this.shop.items.length-1].sides.length;b<lb;b++){
                                 this.shop.items[this.shop.items.length-1].sides[b].value[0]=floor(random(10,101))
                             }
+                        break
+                        case 7:
+                            this.shop.items.push({cost:round(random(3600,4800)),type:10,value:[],sides:types.die.modded,position:{x:450+a*150,y:450}})
                         break
                     }
                 }
@@ -476,6 +490,21 @@ class group{
                             transition.trigger=true
                             transition.scene='select'
                             this.context={type:13,value:this.shop.items[a].value}
+                        break
+                        case 18:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:14,value:this.shop.items[a].value}
+                        break
+                        case 19:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:15,value:this.shop.items[a].value}
+                        break
+                        case 20:
+                            transition.trigger=true
+                            transition.scene='select'
+                            this.context={type:16,value:this.shop.items[a].value}
                         break
                     }
                     this.points-=this.shop.items[a].cost
