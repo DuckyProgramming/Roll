@@ -128,6 +128,12 @@ function displaySide(layer,x,y,size,side,color,fade){
             layer.textSize(50)
             layer.text('?',0,0)
         break
+        case 9:
+            layer.textSize(40)
+            layer.text('x1/'+side.value[0],0,-6)
+            layer.textSize(20)
+            layer.text(100/side.value[1]+'%',0,24)
+        break
     }
     layer.noStroke()
     if(side.inc>0){
@@ -292,6 +298,9 @@ function displayItem(layer,item,x,y,flag){
         break
         case 20:
             displaySide(layer,0,0,0.8,{type:8,value:item.value},types.style[graphics.style].point,1)
+        break
+        case 21:
+            displaySide(layer,0,0,0.8,{type:9,value:item.value},types.style[graphics.style].point,1)
         break
     }
     layer.translate(-x,-y)

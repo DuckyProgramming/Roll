@@ -69,6 +69,15 @@ class die{
                                 }
                             }
                         break
+                        case 9:
+                            if(floor(random(0,this.sides[this.side].value[1]))==0){
+                                for(let a=0,la=main.dice.length;a<la;a++){
+                                    if(main.dice[a].sides.length>0&&types.side[main.dice[a].sides[main.dice[a].side].type].phase<2){
+                                        this.value+=main.dice[a].value/this.sides[this.side].value[0]
+                                    }
+                                }
+                            }
+                        break
                     }
                     main.highestValue[1]=max(main.highestValue[1],this.value)
                 break
@@ -260,6 +269,12 @@ class die{
                     break
                     case 16:
                         this.sides[a].type=8
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 17:
+                        this.sides[a].type=9
+                        this.sides[a].value=main.context.value
                         transition.trigger=true
                         transition.scene='shop'
                     break

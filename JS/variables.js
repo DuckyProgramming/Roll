@@ -28,6 +28,7 @@ types={
         {name:'Lottery',phase:0},
         {name:'Multiplier',phase:2},
         {name:'Wildcard',phase:3},
+        {name:'Lottery Multiplier',phase:2},
     ],die:{
         default:[
             {type:1,value:[1],inc:0,multi:1,weight:1},
