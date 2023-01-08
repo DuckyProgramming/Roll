@@ -12,6 +12,7 @@ class group{
         this.rolls=2023
         this.flag=0
         this.flagKey=0
+        this.timer=0
         this.calc={list:[]}
         this.shop={level:0,items:[{price:0,type:0,value:0}]}
         this.context={type:0,value:[],sides:[]}
@@ -175,12 +176,20 @@ class group{
     }
     displayDice(){
         this.layer.fill(types.style[graphics.style].roll[0],types.style[graphics.style].roll[1],types.style[graphics.style].roll[2])
+        this.layer.noStroke()
         this.layer.rect(this.layer.width/2-7,19,6,6,2)
         this.layer.rect(this.layer.width/2-7,26,6,6,2)
         this.layer.rect(this.layer.width/2,19,6,6,2)
         this.layer.rect(this.layer.width/2,26,6,6,2)
         this.layer.rect(this.layer.width/2+7,19,6,6,2)
         this.layer.rect(this.layer.width/2+7,26,6,6,2)
+    }
+    displayTutorial(){
+        this.layer.fill(types.style[graphics.style].roll[0]/2+types.style[graphics.style].point[0]/2,types.style[graphics.style].roll[1]/2+types.style[graphics.style].point[1]/2,types.style[graphics.style].roll[2]/2+types.style[graphics.style].point[2]/2,2-this.timer/600)
+        this.layer.noStroke()
+        this.layer.textSize(20)
+        this.layer.text('Mouse or Any Key to Roll\nTop Left Button - Shop, Top Middle Button - View Dice, Top Right Button - Rolling\nYou Have '+this.rolls+' Rolls to get the Highest Score Possible!',this.layer.width/2,this.layer.height-50)
+        this.timer++
     }
     displayRoll(){
         this.scaleDice(1)
@@ -193,6 +202,7 @@ class group{
         this.displayPoints()
         this.displayRolls()
         this.displayDice()
+        this.displayTutorial()
     }
     updateRoll(){
         for(let a=0,la=this.dice.length;a<la;a++){
@@ -532,6 +542,7 @@ class group{
         this.displayPoints()
         this.displayRolls()
         this.displayDice()
+        this.displayTutorial()
     }
     onClickShop(){
         if(pointInsideBox({position:inputs.rel},{position:{x:this.layer.width-23,y:23},width:46,height:46})){
@@ -678,6 +689,7 @@ class group{
         this.displayPoints()
         this.displayRolls()
         this.displayDice()
+        this.displayTutorial()
     }
     updateSelect(){
         for(let a=0,la=this.dice.length;a<la;a++){
