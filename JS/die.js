@@ -7,6 +7,8 @@ class die{
         this.diePosition={x:0,y:0}
         this.size=1
         this.value=0
+        this.saveValue=0
+        this.reroll=0
         this.fade=0
         for(let a=0,la=this.sides.length;a<la;a++){
             this.sides[a].fade=0
@@ -100,6 +102,9 @@ class die{
                         if(this.sides[a].type==5){
                             this.value*=2
                         }
+                    }
+                    if(this.sides[this.side].reroll>0){
+                        this.reroll=this.sides[this.side].reroll
                     }
                 break
             }
@@ -211,6 +216,13 @@ class die{
                         }
                     }
                 break
+                case 20:
+                    for(let a=0,la=this.sides.length;a<la;a++){
+                        this.sides[a].reroll=main.context.value[0]
+                        transition.trigger=true
+                        transition.scene='shop'
+                    }
+                break
             }
         }
         for(let a=0,la=this.sides.length;a<la;a++){
@@ -316,6 +328,11 @@ class die{
                     case 18:
                         this.sides[a].type=10
                         this.sides[a].value[0]=main.context.value[0]
+                        transition.trigger=true
+                        transition.scene='shop'
+                    break
+                    case 19:
+                        this.sides[a].reroll=main.context.value[0]
                         transition.trigger=true
                         transition.scene='shop'
                     break

@@ -162,6 +162,14 @@ function displaySide(layer,x,y,size,side,color,fade){
         layer.fill(types.style[graphics.style].weight[0],types.style[graphics.style].weight[1],types.style[graphics.style].weight[2],fade)
         layer.quad(-45.25,37,-34.75,37,-32.5,43,-47.5,43)
     }
+    if(side.reroll>0){
+        layer.fill(types.style[graphics.style].refresh[0],types.style[graphics.style].refresh[1],types.style[graphics.style].refresh[2])
+        layer.triangle(40,39,40,33,43,36)
+        layer.noFill()
+        layer.stroke(types.style[graphics.style].refresh[0],types.style[graphics.style].refresh[1],types.style[graphics.style].refresh[2])
+        layer.strokeWeight(1.5)
+        layer.arc(40,40,8,8,-45,270)
+    }
     layer.scale(1/size)
     layer.translate(-x,-y)
 }
@@ -311,6 +319,26 @@ function displayItem(layer,item,x,y,flag){
         break
         case 22:
             displaySide(layer,0,0,0.8,{type:10,value:item.value},types.style[graphics.style].point,1)
+        break
+        case 23:
+            layer.fill(types.style[graphics.style].refresh[0],types.style[graphics.style].refresh[1],types.style[graphics.style].refresh[2])
+            layer.triangle(0,-7,0,-27,10,-17)
+            layer.noFill()
+            layer.stroke(types.style[graphics.style].refresh[0],types.style[graphics.style].refresh[1],types.style[graphics.style].refresh[2])
+            layer.strokeWeight(6)
+            layer.arc(0,0,34,34,-45,270)
+        break
+        case 24:
+            layer.fill(types.style[graphics.style].refresh[0],types.style[graphics.style].refresh[1],types.style[graphics.style].refresh[2])
+            layer.triangle(-15,-7,-15,-27,-5,-17)
+            layer.noFill()
+            layer.stroke(types.style[graphics.style].refresh[0],types.style[graphics.style].refresh[1],types.style[graphics.style].refresh[2])
+            layer.strokeWeight(6)
+            layer.arc(-15,0,34,34,-45,270)
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.noStroke()
+            layer.textSize(24)
+            layer.text('x6',20,0)
         break
     }
     layer.translate(-x,-y)
