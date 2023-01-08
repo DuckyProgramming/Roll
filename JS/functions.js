@@ -145,13 +145,13 @@ function displaySide(layer,x,y,size,side,color,fade){
     layer.noStroke()
     if(side.inc>0){
         layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2],fade)
-        layer.triangle(-44,-42,-36,-42,-40,-46)
-        layer.rect(-40,-38,2,8)
+        layer.triangle(-45,-42,-35,-42,-40,-47)
+        layer.rect(-40,-38,3,8)
     }
     if(side.inc<0){
         layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2],fade)
-        layer.triangle(-44,-38,-36,-38,-40,-34)
-        layer.rect(-40,-42,2,8)
+        layer.triangle(-45,-38,-35,-38,-40,-37)
+        layer.rect(-40,-42,3,8)
     }
     if(side.multi>1){
         layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2],fade)
