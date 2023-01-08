@@ -36,11 +36,12 @@ class die{
                             }
                         break
                         case 3:
-                            this.value=this.sides[this.side].value[0]*main.dice.length
+                            this.value=this.sides[this.side].value[0]*main.diceAmount
                         break
                         case 6:
                             if(floor(random(0,this.sides[this.side].value[1]))==0){
                                 this.value=this.sides[this.side].value[0]
+                                main.highestValue[0]=max(main.highestValue[0],this.value)
                             }
                         break
                         case 10:
@@ -205,6 +206,7 @@ class die{
                             transition.scene='roll'
                         }
                         this.side=0
+                        main.diceAmount++
                     }
                 break
                 case 8:

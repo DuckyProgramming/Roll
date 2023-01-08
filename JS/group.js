@@ -3,12 +3,13 @@ class group{
         this.layer=layer
         this.bits=[]
         this.dice=[]
+        this.diceAmount=0
         this.points=0
         this.hiddenPoints=0
         this.totalPoints=0
         this.genPoints=0
         this.highestValue=[0,0]
-        this.rolls=2000
+        this.rolls=2023
         this.flag=0
         this.flagKey=0
         this.calc={list:[]}
@@ -30,6 +31,7 @@ class group{
         if(position>=0){
             this.dice[position]=new die(this.layer,sides)
             this.dice[position].positionSelf(position)
+            this.diceAmount++
         }else{
             transition.trigger=true
             transition.scene='select'
@@ -63,6 +65,8 @@ class group{
                 }
             }
             for(let a=0,la=this.dice.length;a<la;a++){
+                this.dice[a].saveValue=this.dice[a].value
+                this.dice[a].value=0
                 if(this.dice[a].reroll>0){
                     this.calc.list=[]
                     for(let b=0,lb=this.dice[a].sides.length;b<lb;b++){
@@ -70,19 +74,20 @@ class group{
                             this.calc.list.push(b)
                         }
                     }
-                    this.dice[a].saveValue=this.dice[a].value
                     this.dice[a].side=this.calc.list[floor(random(0,this.calc.list.length))]
                 }
             }
             for(let a=0;a<5;a++){
                 for(let b=0,lb=this.dice.length;b<lb;b++){
-                    if(this.dice[b].reroll>0){
-                        this.dice[b].determineValue(a)
-                    }
+                    this.dice[b].determineValue(a)
                 }
             }
             for(let a=0,la=this.dice.length;a<la;a++){
-                this.dice[a].value=max(this.dice[a].value,this.dice[a].saveValue)
+                if(this.dice[a].reroll>0){
+                    this.dice[a].value=max(this.dice[a].value,this.dice[a].saveValue)
+                }else{
+                    this.dice[a].value=this.dice[a].saveValue
+                }
                 this.hiddenPoints+=ceil(this.dice[a].value)
                 this.totalPoints+=ceil(this.dice[a].value)
                 this.genPoints=ceil(this.dice[a].value)
@@ -256,7 +261,7 @@ class group{
                     let b=0
                     switch(c){
                         case 0:
-                            b=floor(random(2,5))
+                            b=floor(random(2,6))
                             this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:5,value:[b],position:{x:300+a*150,y:300}})
                         break
                         case 1:
@@ -302,7 +307,7 @@ class group{
                     let b=0
                     switch(c){
                         case 0:
-                            b=floor(random(2,5))
+                            b=floor(random(2,6))
                             this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:5,value:[b],position:{x:300+a*150,y:300}})
                         break
                         case 1:
@@ -320,9 +325,9 @@ class group{
                     }
                 }
                 for(let a=0;a<2;a++){
-                    let c=floor(random(0,4))
+                    let c=floor(random(0,6))
                     switch(c){
-                        case 0:
+                        case 0: case 4: case 5:
                             this.shop.items.push({cost:round(random(600,800)),type:10,value:[],sides:types.die.default,position:{x:450+a*150,y:450}})
                         break
                         case 1:
@@ -349,7 +354,7 @@ class group{
                     let b=0
                     switch(c){
                         case 0: case 1:
-                            b=floor(random(1,6))
+                            b=floor(random(1,11))
                             this.shop.items.push({cost:round(random(b*30,b*40)*(1+this.totalPoints/5000)),type:4,value:[b],position:{x:300+a*150,y:150}})
                         break
                         case 2:
@@ -359,7 +364,8 @@ class group{
                             this.shop.items.push({cost:round(random(1975,2700)*(1+this.totalPoints/5000)),type:11,value:[1],position:{x:300+a*150,y:150}})
                         break
                         case 4: case 5:
-                            b=floor(random(2,6))
+                            d=[2,3,4,5,10]
+                            b=d[floor(random(0,d.length))]
                             this.shop.items.push({cost:round(random(b*525,b*700)*(1+this.totalPoints/5000)),type:12,value:[b],position:{x:300+a*150,y:150}})
                         break
                         case 6:
@@ -377,22 +383,25 @@ class group{
                     }
                 }
                 for(let a=0;a<4;a++){
-                    let c=floor(random(0,11))
+                    let c=floor(random(0,18))
                     let b=0
                     switch(c){
-                        case 0:
-                            b=floor(random(2,5))
+                        case 0: case 11:
+                            d=[2,3,4,5,10]
+                            b=d[floor(random(0,d.length))]
                             this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:5,value:[b],position:{x:300+a*150,y:300}})
                         break
-                        case 1:
-                            b=floor(random(2,7))
+                        case 1: case 12:
+                            d=[2,3,4,5,6,10]
+                            b=d[floor(random(0,d.length))]
                             this.shop.items.push({cost:round(random(b*300,b*400)*(1+this.totalPoints/5000)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
                         break
-                        case 2:
-                            b=floor(random(1,3))
+                        case 2: case 13:
+                            d=[1,2,3,5]
+                            b=d[floor(random(0,d.length))]
                             this.shop.items.push({cost:round(random(b*1200,b*1600)*(1+this.totalPoints/5000)),type:9,value:[b],position:{x:300+a*150,y:300}})
                         break
-                        case 3:
+                        case 3: case 14:
                             b=floor(random(10,101))
                             this.shop.items.push({cost:round(random(b*15,b*20)*(1+this.totalPoints/5000)),type:8,value:[b],position:{x:300+a*150,y:300}})
                         break
@@ -402,7 +411,7 @@ class group{
                         case 5:
                             this.shop.items.push({cost:round(random(750,1000)*(1+this.totalPoints/5000)),type:16,value:[100],position:{x:300+a*150,y:300}})
                         break
-                        case 6:
+                        case 6: case 15: case 16:
                             b=floor(random(0,3))
                             switch(b){
                                 case 0:
@@ -416,8 +425,9 @@ class group{
                                 break
                             }
                         break
-                        case 7:
-                            b=floor(random(2,5))
+                        case 7: case 17:
+                            d=[2,2,3,3,4,4,10]
+                            b=d[floor(random(0,d.length))]
                             this.shop.items.push({cost:round(random(b*3750,b*5000)*(1+this.totalPoints/5000)),type:19,value:[b],position:{x:300+a*150,y:300}})
                         break
                         case 8:
@@ -432,10 +442,11 @@ class group{
                     }
                 }
                 for(let a=0;a<2;a++){
-                    let c=floor(random(0,13))
+                    let c=floor(random(0,16))
                     let b=0
+                    let d=0
                     switch(c){
-                        case 0:
+                        case 0: case 13:
                             this.shop.items.push({cost:round(random(600,800)),type:10,value:[],sides:types.die.default,position:{x:450+a*150,y:450}})
                         break
                         case 1:
@@ -453,8 +464,9 @@ class group{
                         case 4:
                             this.shop.items.push({cost:round(random(1800,2400)),type:10,value:[],sides:types.die.default6,position:{x:450+a*150,y:450}})
                         break
-                        case 5:
-                            b=floor(random(2,6))
+                        case 5: case 14: case 15:
+                            d=[2,3,4,5,10]
+                            b=d[floor(random(0,d.length))]
                             this.shop.items.push({cost:round(random(b*450,b*600)),type:15,value:[b],sides:types.die.one,position:{x:450+a*150,y:450}})
                         break
                         case 6:
@@ -483,14 +495,26 @@ class group{
                         break
                     }
                 }
-                this.shop.items.push({cost:3000,type:0,value:[],position:{x:150,y:225}})
+                this.shop.items.push({cost:3000,type:1,value:[],position:{x:150,y:225}})
                 this.shop.items.push({cost:round(random(450,600)*(1+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
             break
         }
     }
     displayShop(){
         for(let a=0,la=this.shop.items.length;a<la;a++){
-            displayItem(this.layer,this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y,this.flag==this.shop.items[a].cost&&this.flagKey==a&&this.flag>0)
+            if(pointInsideBox({position:inputs.rel},{position:this.shop.items[a].position,width:80,height:80})){
+                this.layer.fill(types.style[graphics.style].item[0],types.style[graphics.style].item[1],types.style[graphics.style].item[2])
+                this.layer.noStroke()
+                this.layer.rect(this.shop.items[a].position.x,this.shop.items[a].position.y,200,80,10)
+                this.layer.noStroke()
+                this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+                this.layer.textSize(16)
+                this.layer.text(types.item[this.shop.items[a].type].name,this.shop.items[a].position.x,this.shop.items[a].position.y-25)
+                this.layer.textSize(8)
+                this.layer.text(types.item[this.shop.items[a].type].desc,this.shop.items[a].position.x,this.shop.items[a].position.y+10)
+            }else{
+                displayItem(this.layer,this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y,this.flag==this.shop.items[a].cost&&this.flagKey==a&&this.flag>0)
+            }
             if(this.shop.items[a].type>0){
                 this.layer.noStroke()
                 this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
@@ -500,6 +524,7 @@ class group{
                 }else{
                     this.layer.text(numberForm(this.shop.items[a].cost),this.shop.items[a].position.x,this.shop.items[a].position.y+56)
                 }
+                
             }
         }
         this.displayPoints()
@@ -518,6 +543,8 @@ class group{
         for(let a=0,la=this.shop.items.length;a<la;a++){
             if(pointInsideBox({position:inputs.rel},{position:this.shop.items[a].position,width:80,height:80})&&this.shop.items[a].type>=2){
                 if(this.points>=this.shop.items[a].cost){
+                    this.points-=this.shop.items[a].cost
+                    this.hiddenPoints-=this.shop.items[a].cost
                     switch(this.shop.items[a].type){
                         case 2:
                             this.shop.level++
@@ -629,8 +656,6 @@ class group{
                             this.context={type:20,value:this.shop.items[a].value}
                         break
                     }
-                    this.points-=this.shop.items[a].cost
-                    this.hiddenPoints-=this.shop.items[a].cost
                     this.flag=0
                     this.flagKey=-1
                     if(this.shop.items[a].type>=4){
