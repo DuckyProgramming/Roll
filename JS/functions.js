@@ -150,7 +150,7 @@ function displaySide(layer,x,y,size,side,color,fade){
     }
     if(side.inc<0){
         layer.fill(types.style[graphics.style].inc[0],types.style[graphics.style].inc[1],types.style[graphics.style].inc[2],fade)
-        layer.triangle(-44,-38,-36,-38,-40,-38)
+        layer.triangle(-44,-38,-36,-38,-40,-32)
         layer.rect(-40,-43,4,10)
     }
     if(side.multi>1){
