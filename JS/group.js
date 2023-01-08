@@ -482,7 +482,7 @@ class group{
                             this.shop.items.push({cost:round(random(b*450,b*600)*(0.8+this.totalPoints/12500)),type:15,value:[b],sides:types.die.one,position:{x:450+a*150,y:450}})
                         break
                         case 6:
-                            this.shop.items.push({cost:round(random(4200,5250)),type:10,value:[],sides:types.die.rand,position:{x:450+a*150,y:450}})
+                            this.shop.items.push({cost:round(random(4200,5250)*(0.8+this.totalPoints/12500)),type:10,value:[],sides:types.die.rand,position:{x:450+a*150,y:450}})
                             for(let b=0,lb=this.shop.items[this.shop.items.length-1].sides.length;b<lb;b++){
                                 this.shop.items[this.shop.items.length-1].sides[b].value[0]=floor(random(10,101))
                             }
