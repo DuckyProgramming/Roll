@@ -37,7 +37,7 @@ class group{
             transition.trigger=true
             transition.scene='select'
             this.context.type=7
-            this.context.value[0]=number
+            this.context.value=[number]
             this.context.sides=sides
         }
     }
