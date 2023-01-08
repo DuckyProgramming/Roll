@@ -10,6 +10,7 @@ class group{
         this.highestValue=[0,0]
         this.rolls=2000
         this.flag=0
+        this.flagKey=0
         this.calc={list:[]}
         this.shop={level:0,items:[{price:0,type:0,value:0}]}
         this.context={type:0,value:[],sides:[]}
@@ -489,7 +490,7 @@ class group{
     }
     displayShop(){
         for(let a=0,la=this.shop.items.length;a<la;a++){
-            displayItem(this.layer,this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y,this.flag==this.shop.items[a].cost&&this.flag>0)
+            displayItem(this.layer,this.shop.items[a],this.shop.items[a].position.x,this.shop.items[a].position.y,this.flag==this.shop.items[a].cost&&this.flagKey==a&&this.flag>0)
             if(this.shop.items[a].type>0){
                 this.layer.noStroke()
                 this.layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
@@ -631,11 +632,13 @@ class group{
                     this.points-=this.shop.items[a].cost
                     this.hiddenPoints-=this.shop.items[a].cost
                     this.flag=0
+                    this.flagKey=-1
                     if(this.shop.items[a].type>=4){
                         this.shop.items[a].type=1
                     }
                 }else{
                     this.flag=this.shop.items[a].cost
+                    this.flagKey=a
                 }
             }
         }
