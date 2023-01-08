@@ -507,7 +507,7 @@ class group{
                         break
                     }
                 }
-                this.shop.items.push({cost:3000,type:1,value:[],position:{x:150,y:225}})
+                this.shop.items.push({cost:0,type:1,value:[],position:{x:150,y:225}})
                 this.shop.items.push({cost:round(random(450,600)*(0.8+this.totalPoints/5000)),type:3,value:[],position:{x:150,y:375}})
             break
         }
