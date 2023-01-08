@@ -267,15 +267,15 @@ class group{
                     }
                 }
                 for(let a=0;a<4;a++){
-                    let c=floor(random(0,3))
+                    let c=floor(random(0,4))
                     let b=0
                     switch(c){
-                        case 0:
+                        case 0: case 3:
                             b=floor(random(2,6))
                             this.shop.items.push({cost:round(random(b*300,b*400)*(0.8+this.totalPoints/12500)),type:5,value:[b],position:{x:300+a*150,y:300}})
                         break
                         case 1:
-                            b=floor(random(2,7))
+                            b=floor(random(2,5))
                             this.shop.items.push({cost:round(random(b*300,b*400)*(0.8+this.totalPoints/12500)),type:6,value:[b*5],position:{x:300+a*150,y:300}})
                         break
                         case 2:
