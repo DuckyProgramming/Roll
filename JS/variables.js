@@ -62,6 +62,7 @@ types={
         {name:'Die Adder Face',desc:'Every 50 Rolls, Adds a\nStandard (1,2,3,4,5,6) Die'},
         {name:'Add Reroller',desc:'Rerolls When Rolled, Giving Higher of Two Rolls'},
         {name:'Add 6 Rerollers',desc:'Add Rerollers to\nAll Faces of Die'},
+        {name:'Win',desc:'Ends the Game'},
         
     ],die:{
         default:[
@@ -162,3 +163,4 @@ stage={scene:'roll',scale:0}
 graphics={main:null,style:2}
 transition={trigger:false,anim:0,scene:stage.scene}
 inputs={press:false,mouse:{x:0,y:0},rel:{x:0,y:0}}
+dev={rng:true}

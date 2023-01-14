@@ -340,6 +340,11 @@ function displayItem(layer,item,x,y,flag){
             layer.textSize(24)
             layer.text('x6',20,0)
         break
+        case 25:
+            layer.fill(types.style[graphics.style].point[0],types.style[graphics.style].point[1],types.style[graphics.style].point[2])
+            layer.textSize(50)
+            layer.text('W',0,0)
+        break
     }
     layer.translate(-x,-y)
 }

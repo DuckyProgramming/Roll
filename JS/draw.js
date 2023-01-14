@@ -18,6 +18,9 @@ function draw(){
             main.displaySelect()
             main.updateSelect()
         break
+        case 'win':
+            main.displayWin()
+        break
     }
     displayTransition(graphics.main,transition)
     stage.scale=min(width/graphics.main.width,height/graphics.main.height)
